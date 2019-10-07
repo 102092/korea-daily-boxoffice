@@ -1,6 +1,4 @@
 spring:
-  mvc:    view:      prefix: /WEB-INF/jsp/
-      suffix: .jsp
   application:
     name: rb-spring
   messages:
@@ -21,6 +19,5 @@ spring:
       minimum-idle: 1
       maximum-pool-size: 5
       pool-name: H2_DB
-    
 server:
   port: 8080
