@@ -5,6 +5,13 @@ spring:
     basename: i18n/messages
     encoding: UTF-8
     cache-duration: PT1H
+  thymeleaf:
+    prefix: classpath:templates/
+    check-template-location: true
+    suffix: .html
+    mode: HTML
+    cache: false
+    template-resolver-order: 0
   h2:
     console:
       enabled: true
@@ -21,3 +28,9 @@ spring:
       pool-name: H2_DB
 server:
   port: 8080
+jwt:
+  token:
+    header: api_key
+    issuer: rb-spring
+    clientSecret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
+    expirySeconds: 0
