@@ -1,22 +1,68 @@
-.App {
-  text-align: center;
+/* custom template */
+html, body {
+  /* height: 100%; */
+  font-family: Dotum, "맑은 고딕", "roboto", "Helvetica Neue", Helvetica, Arial, "맑은 고딕", malgun gothic, "돋움", Dotum, sans-serif;
+  color: #202B3D;
+  background-color: #e9eaed;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  /* height: 100%; */
 }
 
-.App-logo {
-  height: 40vmin;
+.btn-primary, .label-primary, .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  background-color: #3B5999;
+  color: #fffffe;
+  border-color: unset;
+  font-weight: 800;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #3276b1;
+  /* border-color: #285e8e; */
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #3276b1;
+  /* border-color: #285e8e; */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+a {
+  color: #222222;
 }
 
-.App-link {
-  color: #09d3ac;
+a:hover {
+  text-decoration: none;
+}
+
+hr {
+  border-color: #dedede;
+}
+
+.post-modal .modal-header, .modal-footer {
+  background-color: #f2f2f2;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.post-modal .modal-body textarea.form-control {
+  resize: none;
+  border: 0;
+  box-shadow: 0 0 0;
+}
+
+.post-modal .modal-header, .modal-footer {
+  background-color: #f2f2f2;
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.form-group .form-control, .form-group input, .form-group textarea {
+  padding-right: 64px;
+}
+.form-group textarea {
+  resize: none;
+}
+.panel textarea, .well textarea, textarea.form-control {
+  resize: none;
 }

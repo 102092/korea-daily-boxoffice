@@ -9,6 +9,7 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
+import { sendSubscription } from './api';
 
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
@@ -21,7 +22,8 @@ const isLocalhost = Boolean(
 );
 
 export function register(config) {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  console.log(config);
+  if ('serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
@@ -32,20 +34,36 @@ export function register(config) {
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker-noti.js`;
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(() => {
-          console.log(
-            'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://bit.ly/CRA-PWA'
-          );
-        });
+        navigator.serviceWorker.ready.then(registration => {          
+          const subscribeOptions = {
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(
+              'BFJsnkDcKmsymlt5ZVUlIrGtqUxKVEiZ0iBRV3NKCFHrizInoT9FuA8MYESQVzbrTx4njj7lC3Iiz7K41dKUwGE'
+            )
+          };
+      
+          return registration.pushManager.subscribe(subscribeOptions);
+        }).then(subscription => {
+          const notificationEndPoint = subscription.endpoint;
+          const key = subscription.getKey('p256dh');
+          const auth = subscription.getKey('auth');
+          console.log('Received PushSubscription: ', JSON.stringify(subscription));
+          var encodedKey = btoa(String.fromCharCode.apply(null, new Uint8Array(key)));
+          var encodedAuth = btoa(String.fromCharCode.apply(null, new Uint8Array(auth)));
+          
+          return sendSubscription({
+            publicKey: encodedKey, 
+            auth: encodedAuth, 
+            notificationEndPoint
+          });
+        })
       } else {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
@@ -124,6 +142,16 @@ function checkValidServiceWorker(swUrl, config) {
         'No internet connection found. App is running in offline mode.'
       );
     });
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/')
+  ;
+  const rawData = window.atob(base64);
+  return Uint8Array.from([...rawData].map((char) => char.charCodeAt(0)));
 }
 
 export function unregister() {

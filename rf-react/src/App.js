@@ -1,36 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { Navigation } from './components/navigation/Navigation';
+import { Posts } from './containers/posts/Posts'
+import { Router } from "@reach/router"
+import Friends from './containers/friends/Friends'
+import { Login } from './components/login/Login'
+import Signup from './components/signup/Signup'
+import { StateProvider, reducer, initialState } from './state';
+import PostModal from './components/postModal/PostModal';
+import Moment from 'react-moment';
+import 'moment/locale/ko';
 
-class App extends Component {
+Moment.globalLocale = 'ko';
 
-  state = {};
+const App = () => {
+  return (
+    <StateProvider initialState={initialState} reducer={reducer}>    
+      <Navigation></Navigation>
 
-  componentDidMount() {
-    setInterval(this.hello, 250);
-  }
-
-  hello = () => {
-    fetch('/api/hello')
-      .then(response => response.text())
-      .then(message => {
-        this.setState({ message: message });
-      });
-  };
-
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">{this.state.message}</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
+      <div className="container">
+        <Router>
+          <Posts path="/" />
+          <Friends path="/friends" />
+          <Posts path="/friends/:friendId"/>
+          <Login path='/login' />
+          <Signup path='/signup' />
+        </Router> 
       </div>
-    );
-  }
+      
+      <PostModal></PostModal>
+
+    </StateProvider>
+  );
 }
 
 export default App;

@@ -1,0 +1,60 @@
+.bg-blue {
+  border-width: 0;
+  background-color: #3B5999;
+  color: #ffffff;
+  width: inherit;
+}
+
+.bg-blue li > a, .navbar-toggler .navbar-toggler-icon {
+  color: #efefef;
+  cursor: pointer;
+}
+
+.bg-blue .dropdown-menu li a {
+  color: #2A4888;
+}
+
+.bg-blue .dropdown-menu li > a {
+  padding-left: 32px;
+}
+
+.bg-blue li > a:hover, .bg-blue li > a:focus, .bg-blue .open, .bg-blue .open > a, .bg-blue .open > a:hover, .bg-blue .open > a:focus {
+  background-color: #2A4888;
+  color: #fff;
+}
+
+.navbar-brand img {
+  float: left;
+  width: 24px;
+  height: auto;
+}
+
+.navbar-nav {
+  margin-left: 20px;
+}
+
+.navbar {
+  padding: 0 16px;
+}
+
+.navbar-dark .navbar-toggler {
+  color: white;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 34px;
+  padding: 8px 12px;
+}
+
+.navbar img {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  overflow: hidden;
+  margin-right: 10px;
+}
