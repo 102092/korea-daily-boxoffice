@@ -1,25 +1,31 @@
 .bg-blue {
   border-width: 0;
-  background-color: #3B5999;
+  background-color: #3b5999;
   color: #ffffff;
   width: inherit;
 }
 
-.bg-blue li > a, .navbar-toggler .navbar-toggler-icon {
+.bg-blue li > a,
+.navbar-toggler .navbar-toggler-icon {
   color: #efefef;
   cursor: pointer;
 }
 
 .bg-blue .dropdown-menu li a {
-  color: #2A4888;
+  color: #2a4888;
 }
 
 .bg-blue .dropdown-menu li > a {
   padding-left: 32px;
 }
 
-.bg-blue li > a:hover, .bg-blue li > a:focus, .bg-blue .open, .bg-blue .open > a, .bg-blue .open > a:hover, .bg-blue .open > a:focus {
-  background-color: #2A4888;
+.bg-blue li > a:hover,
+.bg-blue li > a:focus,
+.bg-blue .open,
+.bg-blue .open > a,
+.bg-blue .open > a:hover,
+.bg-blue .open > a:focus {
+  background-color: #2a4888;
   color: #fff;
 }
 

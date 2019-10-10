@@ -1,6 +1,5 @@
-
-import React, { createContext, useContext, useReducer } from 'react';
-import { getAuth } from './services/auth';
+import React, { createContext, useContext, useReducer } from "react";
+import { getAuth } from "./services/auth";
 
 export const initialState = {
   postUesrId: null,
@@ -16,51 +15,52 @@ export const StateContext = createContext();
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case 'login':
+    case "login":
       return {
         ...state,
         auth: action.auth
       };
-    case 'logout':      
+    case "logout":
       return {
         ...initialState,
         auth: null
       };
-    case 'newPostCreated': 
+    case "newPostCreated":
       return {
         ...state,
         posts: [action.post, ...state.posts]
-      }
-    case 'appendPosts':
+      };
+    case "appendPosts":
       return {
         ...state,
         posts:
-          (action.query.offset != state.query.offset) ?
-            [...state.posts, ...action.posts] : state.posts,
+          action.query.offset !== state.query.offset
+            ? [...state.posts, ...action.posts]
+            : state.posts,
         query: action.query,
         postUesrId: action.postUesrId
-      }
-    case 'getPosts':
+      };
+    case "getPosts":
       return {
         ...state,
         posts: action.posts,
         query: action.query,
         postUesrId: action.postUesrId
-      }
-    case 'getComments':
+      };
+    case "getComments":
       return {
         ...state,
         comments: {
           ...state.comments,
           [action.postId]: action.comments
         }
-      }
-    case 'getFriedns': 
+      };
+    case "getFriedns":
       return {
         ...state,
         friends: action.friends
-      }
-    case 'updatePost': 
+      };
+    case "updatePost":
       return {
         ...state,
         posts: state.posts.map(v => {
@@ -70,23 +70,23 @@ export const reducer = (state, action) => {
             return v;
           }
         })
-      }
-    case 'openPostModal':
+      };
+    case "openPostModal":
       return {
         ...state,
         postModalOpened: true
-      }
-    case 'togglePostModal':
+      };
+    case "togglePostModal":
       return {
         ...state,
         postModalOpened: action.postModalOpened
-      }
+      };
     default:
       return state;
   }
 };
 
-export const StateProvider = ({reducer, initialState, children}) =>(
+export const StateProvider = ({ reducer, initialState, children }) => (
   <StateContext.Provider value={useReducer(reducer, initialState)}>
     {children}
   </StateContext.Provider>

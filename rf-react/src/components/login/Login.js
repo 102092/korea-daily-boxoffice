@@ -1,14 +1,14 @@
-import React from 'react'
-import './Login.css';
-import { Redirect, Link } from '@reach/router'
-import { useStateValue } from '../../state';
-import { login } from '../../api';
-import jwtDecode from 'jwt-decode';
+import React from "react";
+import "./Login.css";
+import { Redirect, Link } from "@reach/router";
+import { useStateValue } from "../../state";
+import { login } from "../../Api";
+import jwtDecode from "jwt-decode";
 
 export const Login = () => {
   const [email, setEmail] = React.useState("");
   const [passwd, setPasswd] = React.useState("");
-  const [{ auth }, dispatch] = useStateValue()
+  const [{ auth }, dispatch] = useStateValue();
 
   const changeEmail = e => {
     setEmail(e.currentTarget.value);
@@ -16,19 +16,19 @@ export const Login = () => {
   const changePasswd = e => {
     setPasswd(e.currentTarget.value);
   };
-  
+
   if (auth) {
-    return (<Redirect to="/" noThrow />);
+    return <Redirect to="/" noThrow />;
   }
 
   const handleSubmit = async () => {
     try {
       const rep = await login({ email, passwd });
       const auth = jwtDecode(rep.apiToken);
-      
-      localStorage.setItem('auth_token', rep.apiToken);
+
+      localStorage.setItem("auth_token", rep.apiToken);
       dispatch({
-        type: 'login',
+        type: "login",
         auth
       });
     } catch (error) {
@@ -42,15 +42,41 @@ export const Login = () => {
       <h1 className="text-center login-title">웹 트랙 로그인</h1>
       <div className="account-wall">
         <form className="form-signin">
-          <input type="email" value={email} onChange={changeEmail} className="form-control" placeholder="Email" required autoFocus />
-          <input type="password" value={passwd} onChange={changePasswd} className="form-control" placeholder="Password" required />
-          <button onClick={() => {handleSubmit(); return false;} } className="btn btn-lg btn-primary btn-block" type="button">로그인</button>
+          <input
+            type="email"
+            value={email}
+            onChange={changeEmail}
+            className="form-control"
+            placeholder="Email"
+            required
+            autoFocus
+          />
+          <input
+            type="password"
+            value={passwd}
+            onChange={changePasswd}
+            className="form-control"
+            placeholder="Password"
+            required
+          />
+          <button
+            onClick={() => {
+              handleSubmit();
+              return false;
+            }}
+            className="btn btn-lg btn-primary btn-block"
+            type="button"
+          >
+            로그인
+          </button>
         </form>
       </div>
       <p className="text-help text-center">
-        계정이 필요하신가요?
-        {" "}<Link to="/signup" className="text-center new-account">계정 만들기</Link>
+        계정이 필요하신가요?{" "}
+        <Link to="/signup" className="text-center new-account">
+          계정 만들기
+        </Link>
       </p>
     </>
-  )
-}
+  );
+};

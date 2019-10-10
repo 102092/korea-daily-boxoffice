@@ -9,12 +9,12 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
-import { sendSubscription } from './api';
+import { sendSubscription } from "./Api";
 
 const isLocalhost = Boolean(
-  window.location.hostname === 'localhost' ||
+  window.location.hostname === "localhost" ||
     // [::1] is the IPv6 localhost address.
-    window.location.hostname === '[::1]' ||
+    window.location.hostname === "[::1]" ||
     // 127.0.0.1/8 is considered localhost for IPv4.
     window.location.hostname.match(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
@@ -23,7 +23,7 @@ const isLocalhost = Boolean(
 
 export function register(config) {
   console.log(config);
-  if ('serviceWorker' in navigator) {
+  if ("serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
@@ -33,7 +33,7 @@ export function register(config) {
       return;
     }
 
-    window.addEventListener('load', () => {
+    window.addEventListener("load", () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker-noti.js`;
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
@@ -41,29 +41,38 @@ export function register(config) {
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(registration => {          
-          const subscribeOptions = {
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(
-              'BFJsnkDcKmsymlt5ZVUlIrGtqUxKVEiZ0iBRV3NKCFHrizInoT9FuA8MYESQVzbrTx4njj7lC3Iiz7K41dKUwGE'
-            )
-          };
-      
-          return registration.pushManager.subscribe(subscribeOptions);
-        }).then(subscription => {
-          const notificationEndPoint = subscription.endpoint;
-          const key = subscription.getKey('p256dh');
-          const auth = subscription.getKey('auth');
-          console.log('Received PushSubscription: ', JSON.stringify(subscription));
-          var encodedKey = btoa(String.fromCharCode.apply(null, new Uint8Array(key)));
-          var encodedAuth = btoa(String.fromCharCode.apply(null, new Uint8Array(auth)));
-          
-          return sendSubscription({
-            publicKey: encodedKey, 
-            auth: encodedAuth, 
-            notificationEndPoint
+        navigator.serviceWorker.ready
+          .then(registration => {
+            const subscribeOptions = {
+              userVisibleOnly: true,
+              applicationServerKey: urlBase64ToUint8Array(
+                "BFJsnkDcKmsymlt5ZVUlIrGtqUxKVEiZ0iBRV3NKCFHrizInoT9FuA8MYESQVzbrTx4njj7lC3Iiz7K41dKUwGE"
+              )
+            };
+
+            return registration.pushManager.subscribe(subscribeOptions);
+          })
+          .then(subscription => {
+            const notificationEndPoint = subscription.endpoint;
+            const key = subscription.getKey("p256dh");
+            const auth = subscription.getKey("auth");
+            console.log(
+              "Received PushSubscription: ",
+              JSON.stringify(subscription)
+            );
+            var encodedKey = btoa(
+              String.fromCharCode.apply(null, new Uint8Array(key))
+            );
+            var encodedAuth = btoa(
+              String.fromCharCode.apply(null, new Uint8Array(auth))
+            );
+
+            return sendSubscription({
+              publicKey: encodedKey,
+              auth: encodedAuth,
+              notificationEndPoint
+            });
           });
-        })
       } else {
         // Is not localhost. Just register service worker
         registerValidSW(swUrl, config);
@@ -82,14 +91,14 @@ function registerValidSW(swUrl, config) {
           return;
         }
         installingWorker.onstatechange = () => {
-          if (installingWorker.state === 'installed') {
+          if (installingWorker.state === "installed") {
             if (navigator.serviceWorker.controller) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
               console.log(
-                'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+                "New content is available and will be used when all " +
+                  "tabs for this page are closed. See https://bit.ly/CRA-PWA."
               );
 
               // Execute callback
@@ -100,7 +109,7 @@ function registerValidSW(swUrl, config) {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.');
+              console.log("Content is cached for offline use.");
 
               // Execute callback
               if (config && config.onSuccess) {
@@ -112,7 +121,7 @@ function registerValidSW(swUrl, config) {
       };
     })
     .catch(error => {
-      console.error('Error during service worker registration:', error);
+      console.error("Error during service worker registration:", error);
     });
 }
 
@@ -121,10 +130,10 @@ function checkValidServiceWorker(swUrl, config) {
   fetch(swUrl)
     .then(response => {
       // Ensure service worker exists, and that we really are getting a JS file.
-      const contentType = response.headers.get('content-type');
+      const contentType = response.headers.get("content-type");
       if (
         response.status === 404 ||
-        (contentType != null && contentType.indexOf('javascript') === -1)
+        (contentType != null && contentType.indexOf("javascript") === -1)
       ) {
         // No service worker found. Probably a different app. Reload the page.
         navigator.serviceWorker.ready.then(registration => {
@@ -139,23 +148,22 @@ function checkValidServiceWorker(swUrl, config) {
     })
     .catch(() => {
       console.log(
-        'No internet connection found. App is running in offline mode.'
+        "No internet connection found. App is running in offline mode."
       );
     });
 }
 
 function urlBase64ToUint8Array(base64String) {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding)
-    .replace(/\-/g, '+')
-    .replace(/_/g, '/')
-  ;
+    .replace(/\-/g, "+")
+    .replace(/_/g, "/");
   const rawData = window.atob(base64);
-  return Uint8Array.from([...rawData].map((char) => char.charCodeAt(0)));
+  return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
 }
 
 export function unregister() {
-  if ('serviceWorker' in navigator) {
+  if ("serviceWorker" in navigator) {
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister();
     });

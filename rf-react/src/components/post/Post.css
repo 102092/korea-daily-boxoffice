@@ -24,7 +24,7 @@
 
 .more {
   position: relative;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   color: #888da8;
   fill: #c0c4d8;
 }
@@ -49,7 +49,8 @@
   margin-left: 8px;
 }
 
-.contents .contents-date a, .contents .contents-accounts-name {
+.contents .contents-date a,
+.contents .contents-accounts-name {
   font-weight: 700;
   font-size: 1.35em;
 }
@@ -76,12 +77,12 @@
   top: 100%;
   right: 0;
   width: 180px;
-  box-shadow: 0 0 34px 0 rgba(63,66,87,.1);
+  box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.1);
   background-color: #fff;
   border-radius: 4px;
   visibility: hidden;
   opacity: 1;
-  transition: visibility 0s linear .3s,opacity .3s linear;
+  transition: visibility 0s linear 0.3s, opacity 0.3s linear;
   text-align: left;
   padding: 16px 24px;
   z-index: 5;
@@ -97,24 +98,24 @@
 
 .featured-dropdown ul {
   padding: 16px 24px;
-  margin-bottom:0;
+  margin-bottom: 0;
 }
 .featured-dropdown li {
   list-style: none;
 }
-.featured-dropdown li a>* {
-  display:inline-block;
-  vertical-align:middle;
+.featured-dropdown li a > * {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .featured-dropdown a:hover {
-  color:#2a6496;
+  color: #2a6496;
 }
 
 .more:hover .featured-dropdown {
-  visibility:visible;
-  opacity:1;
-  transition-delay:0s
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
 
 .featured-dropdown .noti-list {
@@ -124,7 +125,7 @@
 .noti-list .noti-text {
   padding-left: 16px;
   width: 76%;
-  color: #202B3D;
+  color: #202b3d;
 }
 
 .contents-info {
@@ -147,18 +148,23 @@
   display: inline-block;
   vertical-align: middle;
 }
-.contents-info .contents-icon, .comments .contents-icon {
+.contents-info .contents-icon,
+.comments .contents-icon {
   display: inline-block;
   margin-right: 24px;
   vertical-align: middle;
   font-size: 12px;
 }
-.contents-info .reply, .comments .reply {
+.contents-info .reply,
+.comments .reply {
   margin-top: 2px;
   vertical-align: middle;
   font-size: 12px;
 }
 
-.contents-info .contents-icon svg, .comments .contents-icon svg, .contents-info .reply svg, .comments .reply svg {
+.contents-info .contents-icon svg,
+.comments .contents-icon svg,
+.contents-info .reply svg,
+.comments .reply svg {
   margin-right: 4px;
 }

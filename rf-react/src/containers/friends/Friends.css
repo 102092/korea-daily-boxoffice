@@ -1,68 +1,68 @@
 .dropdown-title:first-child {
-    border-top: none;
+  border-top: none;
 }
 .dropdown-title {
-    padding: 16px 24px;
-    line-height: 1;
-    border-bottom: 1px solid #e6ecf5;
-    border-top: 1px solid #e6ecf5;
-    display: table;
-    width: 100%;
-    position: relative;
-    border-radius: 5px 5px 0 0;
+  padding: 16px 24px;
+  line-height: 1;
+  border-bottom: 1px solid #e6ecf5;
+  border-top: 1px solid #e6ecf5;
+  display: table;
+  width: 100%;
+  position: relative;
+  border-radius: 5px 5px 0 0;
 }
 
 .dropdown-title > * {
-    margin-bottom: 0;
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 12px;
+  margin-bottom: 0;
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 12px;
 }
-
 
 .dropdown-title.dropdown-title-small .title {
-    font-size: 12px;
-    color: #202B3D;
+  font-size: 12px;
+  color: #202b3d;
 }
 
-.featured-dropdown ul, .nav-noti .dropdown-title {
-    padding: 0;
-    height: 300px;
-    overflow: scroll;
+.featured-dropdown ul,
+.nav-noti .dropdown-title {
+  padding: 0;
+  height: 300px;
+  overflow: scroll;
 }
 
 .friend-requests {
-    margin-bottom: 0;
-    padding: 0;
+  margin-bottom: 0;
+  padding: 0;
 }
 
 .noti-list li {
-    padding: 25px;
-    border-bottom: 1px solid #e6ecf5;
-    display: block;
-    position: relative;
-    transition: all .3s ease;
+  padding: 25px;
+  border-bottom: 1px solid #e6ecf5;
+  display: block;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 .noti-list li:hover {
-    background-color: #fafbfd;
+  background-color: #fafbfd;
 }
 
 .user-thumb {
-    display: inline-block;
-    position: relative;
+  display: inline-block;
+  position: relative;
 }
 
 .user-thumb img {
-    border-radius: 100%;
-    overflow: hidden;
-    max-width: unset;
-    height: 40px;
-    width: 40px;
+  border-radius: 100%;
+  overflow: hidden;
+  max-width: unset;
+  height: 40px;
+  width: 40px;
 }
 
 .noti-list li > * {
-    margin-bottom: 0;
-    display: inline-block;
-    vertical-align: middle;
+  margin-bottom: 0;
+  display: inline-block;
+  vertical-align: middle;
 }
