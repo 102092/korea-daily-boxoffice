@@ -6,9 +6,9 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink  
 } from 'reactstrap';
-import Octicon, { Plus, Organization } from '@githubprimer/octicons-react'
+import Octicon, {Plus, Organization} from '@githubprimer/octicons-react'
 import { Link } from "@reach/router"
 import './Navigation.css';
 import { useStateValue } from '../../state';
@@ -35,14 +35,14 @@ export const Navigation = () => {
     if (auth) {
       getMe()
         .then(v => setPorfileImage(v.profileImageUrl))
-        .catch(alert);
+        .catch(alert); 
     }
   }, [])
 
   return (
     <Navbar fixed="true" color="blue" dark expand="md" sticky="top">
       <Link to="/">
-        <NavbarBrand tag="span" className="mr-auto">
+        <NavbarBrand tag="span" className="mr-auto">
           <img src="/img/bi-symbol-light.png" alt="프로그래머스 로고"></img>
         </NavbarBrand>
       </Link>
@@ -55,7 +55,7 @@ export const Navigation = () => {
             </NavLink>
           </NavItem>}
           {
-            auth &&
+            auth && 
             <NavItem>
               <Link to="/friends">
                 <NavLink tag="span">
@@ -71,7 +71,7 @@ export const Navigation = () => {
           </NavItem> */}
         </Nav>
         {
-          (auth != null) ?
+          (auth != null) ? 
             <Nav navbar>
               <NavItem>
                 <NavLink tag="span">
@@ -97,7 +97,7 @@ export const Navigation = () => {
                 </Link>
               </NavItem>
             </Nav>
-        }
+        }        
       </Collapse>
     </Navbar>
   )

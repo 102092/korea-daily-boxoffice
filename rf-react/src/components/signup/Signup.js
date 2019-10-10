@@ -1,8 +1,8 @@
-import React, { useState } from './node_modules/react'
+import React, { useState } from 'react'
 import './Signup.css';
-import { Link } from './node_modules/@reach/router';
+import { Link } from '@reach/router';
 import { signup, userExists } from '../../api';
-import { navigate } from './node_modules/@reach/router';
+import { navigate } from '@reach/router';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ const Signup = () => {
   const [file, setFile] = useState("");
 
   const onChange = e => setFile(e.target.files[0]);
-
+ 
   const join = (e) => {
     e.preventDefault();
 
@@ -41,9 +41,9 @@ const Signup = () => {
           alert(e.message);
         }
         console.dir(e);
-
+        
       })
-
+    
     return false;
   }
 
@@ -51,29 +51,29 @@ const Signup = () => {
     <>
       <h1 className="text-center signup-title">계정 만들기</h1>
       <div className="account-wall">
-        <form className="form-signup" onSubmit={join}>
-          <div className="form-group">
-            <input type="text" className="form-input" name="email" id="email" placeholder="Your Email"
-              value={email} onChange={v => setEmail(v.target.value)} />
-          </div>
-          <div className="form-group">
-            <input type="text" className="form-input" name="name" id="name" placeholder="Your Name"
-              value={name} onChange={v => setName(v.target.value)} />
-          </div>
-          <div className="form-group">
-            <input type="file" className="form-input" name="file" id="file" placeholder="사진" onChange={onChange} />
-          </div>
-
-          <div className="form-group">
-            <input type="password" className="form-input" name="password" id="password" placeholder="Password"
-              value={password} onChange={v => setPassword(v.target.value)} />
-          </div>
-          <div className="form-group">
-            <input type="password" className="form-input" name="re_password" id="re_password" placeholder="Repeat your password"
-              value={rePassword} onChange={v => setRePassword(v.target.value)} />
-          </div>
-          <button className="btn btn-lg btn-primary btn-block" type="submit">가입하기</button>
-        </form>
+          <form className="form-signup" onSubmit={join}>
+              <div className="form-group">
+                <input type="text" className="form-input" name="email" id="email" placeholder="Your Email" 
+                  value={email} onChange={v => setEmail(v.target.value)}/>
+              </div>
+              <div className="form-group">
+                <input type="text" className="form-input" name="name" id="name" placeholder="Your Name" 
+                  value={name} onChange={v => setName(v.target.value)}/>
+              </div>
+              <div className="form-group">
+                <input type="file" className="form-input" name="file" id="file" placeholder="사진" onChange={onChange} />            
+              </div>
+              
+              <div className="form-group">
+                <input type="password" className="form-input" name="password" id="password" placeholder="Password" 
+                  value={password} onChange={v => setPassword(v.target.value)}/>
+              </div>
+              <div className="form-group">
+                <input type="password" className="form-input" name="re_password" id="re_password" placeholder="Repeat your password" 
+                  value={rePassword} onChange={v => setRePassword(v.target.value)}/>
+              </div>
+              <button className="btn btn-lg btn-primary btn-block" type="submit">가입하기</button>
+          </form>
       </div>
       <p className="text-help text-center">
         이미 계정이 있으신가요?
