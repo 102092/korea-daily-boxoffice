@@ -1,5 +1,4 @@
 spring:
-  devtools:    livereload:      enabled: true
   mvc:    view:      prefix: /WEB-INF/jsp/
       suffix: .jsp
   application:
