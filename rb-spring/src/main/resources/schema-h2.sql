@@ -44,3 +44,14 @@ CREATE TABLE connections (
   CONSTRAINT fk_connection_to_user FOREIGN KEY (user_seq) REFERENCES users (seq) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT fk_connection_to_user2 FOREIGN KEY (target_seq) REFERENCES users (seq) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
+
+CREATE TABLE likes (
+    seq       bigint NOT NULL AUTO_INCREMENT,
+    user_seq  bigint NOT NULL,
+    post_seq  bigint NOT NULL,
+    create_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    PRIMARY KEY (seq),
+    CONSTRAINT unq_likes_user_post UNIQUE (user_seq, post_seq),
+    CONSTRAINT fk_likes_to_user FOREIGN KEY (user_seq) REFERENCES users (seq) ON DELETE RESTRICT ON UPDATE RESTRICT,
+    CONSTRAINT fk_likes_to_post FOREIGN KEY (post_seq) REFERENCES posts (seq) ON DELETE CASCADE ON UPDATE CASCADE
+);

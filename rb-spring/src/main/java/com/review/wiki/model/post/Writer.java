@@ -1,4 +1,4 @@
-package com.review.wiki.model.api.post;
+package com.review.wiki.model.post;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

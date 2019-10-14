@@ -1,15 +1,4 @@
-package com.review.wiki.model.api.post;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.review.wiki.model.commons.Id;
-import com.review.wiki.model.user.User;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.Optional;
+package com.review.wiki.model.post;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -18,42 +7,49 @@ import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
-public class Post {
+import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.Optional;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.review.wiki.model.commons.Id;
+import com.review.wiki.model.user.User;
+
+public class Comment {
 
 	private final Long seq;
 
 	@JsonIgnore
 	private final Id<User, Long> userId;
 
+	@JsonIgnore
+	private final Id<Post, Long> postId;
+
 	private String contents;
-
-	private int likes;
-
-	private boolean likesOfMe;
-
-	private int comments;
 
 	private final Writer writer;
 
 	private final LocalDateTime createAt;
 
-	public Post(Id<User, Long> userId, Writer writer, String contents) {
-		this(null, userId, contents, 0, false, 0, writer, null);
+	public Comment(Id<User, Long> userId, Id<Post, Long> postId, Writer writer, String contents) {
+		this(null, userId, postId, contents, writer, null);
 	}
 
-	public Post(Long seq, Id<User, Long> userId, String contents, int likes, boolean likesOfMe, int comments,
-			Writer writer, LocalDateTime createAt) {
+	public Comment(Long seq, Id<User, Long> userId, Id<Post, Long> postId, String contents, Writer writer,
+			LocalDateTime createAt) {
 		checkNotNull(userId, "userId must be provided.");
+		checkNotNull(postId, "postId must be provided.");
 		checkArgument(isNotEmpty(contents), "contents must be provided.");
 		checkArgument(contents.length() >= 4 && contents.length() <= 500,
-				"post contents length must be between 4 and 500 characters.");
+				"comment contents length must be between 4 and 500 characters.");
 
 		this.seq = seq;
 		this.userId = userId;
+		this.postId = postId;
 		this.contents = contents;
-		this.likes = likes;
-		this.likesOfMe = likesOfMe;
-		this.comments = comments;
 		this.writer = writer;
 		this.createAt = defaultIfNull(createAt, now());
 	}
@@ -66,14 +62,6 @@ public class Post {
 		this.contents = contents;
 	}
 
-	public int incrementAngGetLikes() {
-		return ++likes;
-	}
-
-	public int incrementAngGetComments() {
-		return ++comments;
-	}
-
 	public Long getSeq() {
 		return seq;
 	}
@@ -82,20 +70,12 @@ public class Post {
 		return userId;
 	}
 
+	public Id<Post, Long> getPostId() {
+		return postId;
+	}
+
 	public String getContents() {
 		return contents;
-	}
-
-	public int getLikes() {
-		return likes;
-	}
-
-	public boolean isLikesOfMe() {
-		return likesOfMe;
-	}
-
-	public int getComments() {
-		return comments;
 	}
 
 	public Optional<Writer> getWriter() {
@@ -112,8 +92,8 @@ public class Post {
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
-		Post post = (Post) o;
-		return Objects.equals(seq, post.seq);
+		Comment comment = (Comment) o;
+		return Objects.equals(seq, comment.seq);
 	}
 
 	@Override
@@ -124,38 +104,32 @@ public class Post {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-				.append("seq", seq)
-				.append("userId", userId)
+				.append("seq", seq).append("userId", userId)
+				.append("postId", postId)
 				.append("contents", contents)
-				.append("likes", likes)
-				.append("likesOfMe", likesOfMe)
-				.append("comments", comments)
 				.append("writer", writer)
-				.append("createAt", createAt).toString();
+				.append("createAt", createAt)
+				.toString();
 	}
 
 	static public class Builder {
 		private Long seq;
 		private Id<User, Long> userId;
+		private Id<Post, Long> postId;
 		private String contents;
-		private int likes;
-		private boolean likesOfMe;
-		private int comments;
 		private Writer writer;
 		private LocalDateTime createAt;
 
 		public Builder() {
 		}
 
-		public Builder(Post post) {
-			this.seq = post.seq;
-			this.userId = post.userId;
-			this.contents = post.contents;
-			this.likes = post.likes;
-			this.likesOfMe = post.likesOfMe;
-			this.comments = post.comments;
-			this.writer = post.writer;
-			this.createAt = post.createAt;
+		public Builder(Comment comment) {
+			this.seq = comment.seq;
+			this.userId = comment.userId;
+			this.postId = comment.postId;
+			this.contents = comment.contents;
+			this.writer = comment.writer;
+			this.createAt = comment.createAt;
 		}
 
 		public Builder seq(Long seq) {
@@ -168,23 +142,13 @@ public class Post {
 			return this;
 		}
 
+		public Builder postId(Id<Post, Long> postId) {
+			this.postId = postId;
+			return this;
+		}
+
 		public Builder contents(String contents) {
 			this.contents = contents;
-			return this;
-		}
-
-		public Builder likes(int likes) {
-			this.likes = likes;
-			return this;
-		}
-
-		public Builder likesOfMe(boolean likesOfMe) {
-			this.likesOfMe = likesOfMe;
-			return this;
-		}
-
-		public Builder comments(int comments) {
-			this.comments = comments;
 			return this;
 		}
 
@@ -198,9 +162,8 @@ public class Post {
 			return this;
 		}
 
-		public Post build() {
-			return new Post(seq, userId, contents, likes, likesOfMe, comments, writer, createAt);
+		public Comment build() {
+			return new Comment(seq, userId, postId, contents, writer, createAt);
 		}
 	}
-
 }

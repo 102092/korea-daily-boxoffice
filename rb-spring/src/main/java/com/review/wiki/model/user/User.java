@@ -3,7 +3,6 @@ package com.review.wiki.model.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.review.wiki.security.JWT;
 
-import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +27,6 @@ public class User {
     private final Email email;
 
     @JsonIgnore
-    @ApiModelProperty(hidden = true)
     private String password;
 
     private int loginCount;

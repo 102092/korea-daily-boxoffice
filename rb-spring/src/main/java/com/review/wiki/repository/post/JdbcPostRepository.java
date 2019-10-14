@@ -10,9 +10,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 
-import com.review.wiki.model.api.post.Post;
-import com.review.wiki.model.api.post.Writer;
 import com.review.wiki.model.commons.Id;
+import com.review.wiki.model.post.Post;
+import com.review.wiki.model.post.Writer;
 import com.review.wiki.model.user.Email;
 import com.review.wiki.model.user.User;
 
@@ -25,7 +25,7 @@ public class JdbcPostRepository implements PostRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcPostRepository(JdbcTemplate jdbcTemplate) {
+	public JdbcPostRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -58,29 +58,54 @@ public class JdbcPostRepository implements PostRepository {
                 post.getSeq()
         );
     }
-
+    
     @Override
-    public Optional<Post> findById(Id<Post, Long> postId) {
-        List<Post> results = jdbcTemplate.query("SELECT p.*,u.email FROM posts p JOIN users u ON p.user_seq=u.seq WHERE p.seq=?",
-                new Object[]{postId.value()},
+	public void delete(Post post) {
+		jdbcTemplate.update("DELETE FROM posts WHERE seq=? ",
+				post.getSeq()
+				);	
+	}
+ 
+    @Override
+	public Optional<Post> findById(Id<Post, Long> postId, Id<User, Long> writerId, Id<User, Long> userId) {
+        List<Post> results = jdbcTemplate.query(
+                "SELECT " +
+                        "p.*,u.email,u.name,ifnull(l.seq,false) as likesOfMe " +
+                    "FROM " +
+                        "posts p JOIN users u ON p.user_seq=u.seq LEFT OUTER JOIN likes l ON p.seq=l.post_seq AND l.user_seq=? " +
+                    "WHERE " +
+                        "p.seq=? AND p.user_seq=?",
+                new Object[]{userId.value(), postId.value(), writerId.value()},
                 mapper
         );
         return ofNullable(results.isEmpty() ? null : results.get(0));
     }
-
-    @Override
-    public List<Post> findAll(Id<User, Long> userId) {
-        return jdbcTemplate.query("SELECT p.*,u.email FROM posts p JOIN users u ON p.user_seq=u.seq WHERE p.user_seq=? ORDER BY p.seq DESC",
-                new Object[]{userId.value()},
+    
+	@Override
+    public List<Post> findAll(Id<User, Long> writerId, Id<User, Long> userId, long offset, int limit) {
+        return jdbcTemplate.query(
+                "SELECT " +
+                        "p.*,u.email,u.name,ifnull(l.seq,false) as likesOfMe " +
+                    "FROM " +
+                        "posts p JOIN users u ON p.user_seq=u.seq LEFT OUTER JOIN likes l ON p.seq=l.post_seq AND l.user_seq=? " +
+                    "WHERE " +
+                        "p.user_seq=? " +
+                    "ORDER BY " +
+                        "p.seq DESC " +
+                    "LIMIT " +
+                        "?,?",
+                new Object[]{userId.value(), writerId.value(), offset, limit},
                 mapper
         );
     }
+
 
     static RowMapper<Post> mapper = (rs, rowNum) -> new Post.Builder()
             .seq(rs.getLong("seq"))
             .userId(Id.of(User.class, rs.getLong("user_seq")))
             .contents(rs.getString("contents"))
             .likes(rs.getInt("like_count"))
+            .likesOfMe(rs.getBoolean("likesOfMe"))
             .comments(rs.getInt("comment_count"))
             .writer(new Writer(new Email(rs.getString("email"))))
             .createAt(dateTimeOf(rs.getTimestamp("create_at")))
