@@ -12,7 +12,7 @@ CREATE TABLE users (
   CONSTRAINT unq_user_email UNIQUE (email)
 );
 
-CREATE TABLE posts (
+  CREATE TABLE posts (
   seq           bigint NOT NULL AUTO_INCREMENT,
   user_seq      bigint NOT NULL,
   contents      varchar(500) NOT NULL,
@@ -22,6 +22,21 @@ CREATE TABLE posts (
   PRIMARY KEY (seq),
   CONSTRAINT fk_post_to_user FOREIGN KEY (user_seq) REFERENCES users (seq) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
+
+CREATE TABLE books (
+  seq           bigint NOT NULL AUTO_INCREMENT,
+  user_seq      bigint NOT NULL,
+  title         varchar(50) NOT NULL,
+  link          varchar(250) NOT NULL,
+  image         varchar(250) NOT NULL,
+  author        varchar(10) NOT NULL,
+  isbn          varchar(50) NOT NULL,
+  comment_count int NOT NULL DEFAULT 0,
+  create_at     datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (seq),
+  CONSTRAINT fk_books_to_user FOREIGN KEY (user_seq) REFERENCES users (seq) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
 
 CREATE TABLE comments (
   seq       bigint NOT NULL AUTO_INCREMENT,
