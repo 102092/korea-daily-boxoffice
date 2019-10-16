@@ -3,12 +3,17 @@ package com.review.wiki.model.api.request.user;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class JoinRequest {
-
+	
+	@ApiModelProperty(value = "이름", required = true)
     private String name;
-
+	
+	@ApiModelProperty(value = "로그인 이메일", required = true)
     private String principal;
-
+	
+	@ApiModelProperty(value = "로그인 비밀번호", required = true)
     private String credentials;
 
     public String getName() {

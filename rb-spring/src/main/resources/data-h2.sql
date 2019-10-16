@@ -5,9 +5,13 @@ INSERT INTO users(seq,name,email,passwd) VALUES (null,'tester02','test02@gmail.c
 INSERT INTO posts(seq,user_seq,contents,like_count,comment_count,create_at) VALUES (null,1,'test01 first post',1,1,'2019-03-01 13:10:00');
 INSERT INTO posts(seq,user_seq,contents,like_count,comment_count,create_at) VALUES (null,1,'test01 second post',0,0,'2019-03-12 09:45:00');
 INSERT INTO posts(seq,user_seq,contents,like_count,comment_count,create_at) VALUES (null,1,'test01 third post',0,0,'2019-03-20 19:05:00');
-INSERT INTO posts(seq,user_seq,contents,like_count,comment_count,create_at) VALUES (null,2,'test02 post',0,0,'2019-03-20 15:13:20');
+INSERT INTO posts(seq,user_seq,contents,like_count,comment_count,create_at) VALUES (null,2,'test02 post',0,1,'2019-03-20 15:13:20');
 
 INSERT INTO comments(seq,user_seq,post_seq,contents,create_at) VALUES (null,1,1,'first comment','2019-03-01 13:15:00');
 INSERT INTO comments(seq,user_seq,post_seq,contents,create_at) VALUES (null,2,4,'first comment','2019-03-01 13:15:00');
 
 INSERT INTO connections(seq,user_seq,target_seq,granted_at,create_at) VALUES (null,1,2,'2019-03-31 13:00:00','2019-03-31 00:10:00');
+
+INSERT INTO likes(seq,user_seq,post_seq,create_at) VALUES (null,1,1,'2019-03-01 15:10:00');
+
+INSERT INTO books(seq,user_seq,title,link,image,author,isbn) VALUES (null,1,'룬의 아이들','https://book.naver.com/bookdb/book_detail.nhn?bid=15475909','https://bookthumb-phinf.pstatic.net/cover/154/759/15475909.jpg?type=m1&udate=20190919','전민희','954657559 9788954657556');

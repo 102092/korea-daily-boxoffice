@@ -1,9 +1,11 @@
-package com.review.wiki.model.api.post;
+package com.review.wiki.model.post;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.review.wiki.model.user.Email;
+
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Optional;
 
@@ -11,9 +13,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.Optional.ofNullable;
 
 public class Writer {
-
+	
+	@ApiModelProperty(value = "이메일", required = true)
     private final Email email;
-
+	
+	@ApiModelProperty(value = "이름")
     private final String name;
 
     public Writer(Email email) {

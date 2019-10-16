@@ -1,8 +1,10 @@
-package com.review.wiki.model.api.post;
+package com.review.wiki.model.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.review.wiki.model.commons.Id;
 import com.review.wiki.model.user.User;
+
+import io.swagger.annotations.ApiModelProperty;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -19,22 +21,30 @@ import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class Post {
-
+	
+	@ApiModelProperty(value = "PK", required = true)
 	private final Long seq;
 
 	@JsonIgnore
+	@ApiModelProperty(hidden = true)
 	private final Id<User, Long> userId;
-
+	
+	@ApiModelProperty(value = "내용", required = true)
 	private String contents;
-
+	
+	@ApiModelProperty(value = "좋아요 횟수", required = true)
 	private int likes;
-
+	
+	@ApiModelProperty(value = "나의 좋아요 여부", required = true)
 	private boolean likesOfMe;
-
+	
+	@ApiModelProperty(value = "댓글 갯수", required = true)
 	private int comments;
-
+	
+	@ApiModelProperty(value = "작성자")
 	private final Writer writer;
-
+	
+	@ApiModelProperty(value = "작성일시", required = true)
 	private final LocalDateTime createAt;
 
 	public Post(Id<User, Long> userId, Writer writer, String contents) {
@@ -67,6 +77,7 @@ public class Post {
 	}
 
 	public int incrementAngGetLikes() {
+		likesOfMe = true;
 		return ++likes;
 	}
 
