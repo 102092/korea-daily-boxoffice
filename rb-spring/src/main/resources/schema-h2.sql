@@ -1,13 +1,13 @@
 DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE users (
-  seq           bigint NOT NULL AUTO_INCREMENT,
-  email         varchar(50) NOT NULL,
-  name          varchar(10) NOT NULL,
-  passwd        varchar(80) NOT NULL,
-  login_count   int NOT NULL DEFAULT 0,
-  last_login_at datetime DEFAULT NULL,
-  create_at     datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  seq               bigint NOT NULL AUTO_INCREMENT,
+  name              varchar(10) NOT NULL,
+  email             varchar(50) NOT NULL,
+  passwd            varchar(80) NOT NULL,
+  login_count       int NOT NULL DEFAULT 0,
+  last_login_at     datetime DEFAULT NULL,
+  create_at         datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
   PRIMARY KEY (seq),
   CONSTRAINT unq_user_email UNIQUE (email)
 );
@@ -50,7 +50,6 @@ CREATE TABLE likes (
     user_seq  bigint NOT NULL,
     post_seq  bigint NOT NULL,
     create_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    PRIMARY KEY (seq),
     CONSTRAINT unq_likes_user_post UNIQUE (user_seq, post_seq),
     CONSTRAINT fk_likes_to_user FOREIGN KEY (user_seq) REFERENCES users (seq) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT fk_likes_to_post FOREIGN KEY (post_seq) REFERENCES posts (seq) ON DELETE CASCADE ON UPDATE CASCADE

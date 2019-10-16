@@ -9,6 +9,9 @@ import com.review.wiki.security.AuthenticationRequest;
 import com.review.wiki.security.AuthenticationResult;
 import com.review.wiki.security.JwtAuthenticationToken;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -20,6 +23,7 @@ import static com.review.wiki.model.api.response.ApiResult.OK;
 
 @RestController
 @RequestMapping("api/auth")
+@Api(tags = "인증 APIs")
 public class AuthenticationRestController {
 
 	private final AuthenticationManager authenticationManager;
@@ -29,6 +33,7 @@ public class AuthenticationRestController {
 	}
 
 	@PostMapping
+	@ApiOperation(value = "사용자 로그인 (API 토큰 필요없음)")
 	public ApiResult<AuthenticationResult> authentication(@RequestBody AuthenticationRequest authRequest)
 			throws UnauthorizedException {
 		try {

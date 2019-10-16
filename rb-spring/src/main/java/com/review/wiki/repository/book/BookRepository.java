@@ -1,5 +1,9 @@
 package com.review.wiki.repository.book;
 
-public interface BookRepository {
+import java.util.Optional;
 
+import com.review.wiki.model.book.NaverBook;
+
+public interface BookRepository {
+	Optional<NaverBook> findBookByQuery(String query);
 }

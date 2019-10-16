@@ -9,7 +9,7 @@ public class NotFoundException extends ServiceRuntimeException {
     static final String MESSAGE_KEY = "error.notfound";
     static final String MESSAGE_DETAILS = "error.notfound.details";
 
-    public NotFoundException(Class cls, Object... values) {
+    public NotFoundException(Class<?> cls, Object... values) {
         this(cls.getSimpleName(), values);
     }
 

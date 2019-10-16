@@ -18,20 +18,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.review.wiki.model.commons.Id;
 import com.review.wiki.model.user.User;
 
-public class Comment {
+import io.swagger.annotations.ApiModelProperty;
 
+public class Comment {
+	
+	@ApiModelProperty(value = "PK", required = true)
 	private final Long seq;
 
 	@JsonIgnore
+	@ApiModelProperty(hidden = true)
 	private final Id<User, Long> userId;
 
 	@JsonIgnore
+	@ApiModelProperty(hidden = true)
 	private final Id<Post, Long> postId;
-
+	
+	@ApiModelProperty(value = "내용", required = true)
 	private String contents;
-
+	
+	@ApiModelProperty(value = "작성자")
 	private final Writer writer;
-
+	
+	@ApiModelProperty(value = "작성일시", required = true)
 	private final LocalDateTime createAt;
 
 	public Comment(Id<User, Long> userId, Id<Post, Long> postId, Writer writer, String contents) {

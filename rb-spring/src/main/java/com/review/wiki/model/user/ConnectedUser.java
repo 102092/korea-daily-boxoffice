@@ -3,18 +3,24 @@ package com.review.wiki.model.user;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.time.LocalDateTime;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ConnectedUser {
-
+	
+	@ApiModelProperty(value = "친구 PK", required = true)
     private final Long seq;
-
+	
+	@ApiModelProperty(value = "이름", required = true)
     private final String name;
-
+	
+	@ApiModelProperty(value = "이메일", required = true)
     private final Email email;
-
+	
+	@ApiModelProperty(value = "승락일시", required = true)
     private final LocalDateTime grantedAt;
 
     public ConnectedUser(Long seq, String name, Email email, LocalDateTime grantedAt) {

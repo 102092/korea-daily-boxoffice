@@ -8,8 +8,11 @@ import com.review.wiki.model.post.Post;
 import com.review.wiki.model.post.Writer;
 import com.review.wiki.model.user.User;
 
-public class PostingRequest {
+import io.swagger.annotations.ApiModelProperty;
 
+public class PostingRequest {
+	
+	@ApiModelProperty(value = "내용", required = true)
     private String contents;
 
     protected PostingRequest() {}

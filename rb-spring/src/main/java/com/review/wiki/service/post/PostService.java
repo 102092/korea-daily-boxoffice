@@ -6,8 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.review.wiki.model.commons.Id;
 import com.review.wiki.model.post.Post;
 import com.review.wiki.model.user.User;
+import com.review.wiki.repository.post.PostLikeRepository;
 import com.review.wiki.repository.post.PostRepository;
-import com.review.wiki.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,13 +17,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Service
 public class PostService {
 
-	private final UserRepository userRepository;
-
 	private final PostRepository postRepository;
+	
+	private final PostLikeRepository postLikeRepository;
 
-	public PostService(UserRepository userRepository, PostRepository postRepository) {
-		this.userRepository = userRepository;
+	public PostService(PostRepository postRepository, PostLikeRepository postLikeRepository) {
 		this.postRepository = postRepository;
+		this.postLikeRepository = postLikeRepository;
 	}
 
 	@Transactional
@@ -73,4 +73,17 @@ public class PostService {
 	private void delete(Post post) {
 		postRepository.delete(post);
 	}
+	
+    @Transactional
+    public Optional<Post> like(Id<Post, Long> postId, Id<User, Long> writerId, Id<User, Long> userId) {
+        return findById(postId, writerId, userId).map(post -> {
+            if (!post.isLikesOfMe()) {
+                post.incrementAngGetLikes();
+                postLikeRepository.like(userId, postId);
+                update(post);
+            }
+            return post;
+        });
+    }
+
 }

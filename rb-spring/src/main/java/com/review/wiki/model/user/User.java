@@ -3,6 +3,8 @@ package com.review.wiki.model.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.review.wiki.security.JWT;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,20 +21,27 @@ import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 public class User {
-
+	
+	@ApiModelProperty(value = "PK", required = true)
     private final Long seq;
-
+	
+	@ApiModelProperty(value = "사용자명", required = true)
     private final String name;
-
+	
+	@ApiModelProperty(value = "이메일", required = true)
     private final Email email;
 
     @JsonIgnore
+    @ApiModelProperty(hidden = true)
     private String password;
-
+    
+    @ApiModelProperty(value = "로그인 횟수", required = true)
     private int loginCount;
-
+    
+    @ApiModelProperty(value = "최종로그인일시")
     private LocalDateTime lastLoginAt;
-
+    
+    @ApiModelProperty(value = "생성일시", required = true)
     private final LocalDateTime createAt;
     
     public User(String name, Email email, String password) {
