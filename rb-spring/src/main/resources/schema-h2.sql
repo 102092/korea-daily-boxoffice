@@ -10,3 +10,9 @@ CREATE TABLE users (
   PRIMARY KEY (seq),
   CONSTRAINT unq_user_email UNIQUE (email)
 );
+
+CREATE TABLE reviews (
+  seq           bigint,
+  contents      varchar(500),
+  PRIMARY KEY (seq)
+);
