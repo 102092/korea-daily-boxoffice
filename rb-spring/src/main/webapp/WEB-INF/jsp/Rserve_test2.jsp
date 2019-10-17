@@ -20,4 +20,6 @@ Rserve(FALSE,port=6311,args='--RS-encoding utf8 --no-save --slave --encoding utf
 
 Rserve(args="--RS- encoding utf8")
 
+Rserve(FALSE,port=6311,args='--RS-encoding utf8 --no-save --slave --encoding utf8')
+
 --%>
