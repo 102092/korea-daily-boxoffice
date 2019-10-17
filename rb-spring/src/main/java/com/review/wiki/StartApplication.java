@@ -38,17 +38,28 @@ public class StartApplication{
 	@Autowired private JdbcTemplate jdbc; public void method() 
 	{ 
 		
-	list2 = this.jdbc.queryForList("SELECT CONTENTS FROM REVIEWS"); 
-	 
-	list2.forEach(System.out::println); 
-	
-//	System.out.println(list2.get(0));
-//	System.out.println(list2.get(1));
-//	System.out.println(list2.get(2));
-//	System.out.println(list2.get(3));
-	 Object abc = list2.get(0).values();
-	 String a = abc.toString();
-     System.out.println(a);
+//	list2 = this.jdbc.queryForList("SELECT CONTENTS FROM REVIEWS"); 
+//	 
+//	list2.forEach(System.out::println); 
+//	
+////	System.out.println(list2.get(0));
+////	System.out.println(list2.get(1));
+////	System.out.println(list2.get(2));
+////	System.out.println(list2.get(3));
+//	 Object abc = list2.get(0).values();
+//	 String a = abc.toString();
+//	 String b = "";
+//	 
+//	 for(Map<String, Object> i : list2){
+//		    b += i.values().toString();
+//		}
+//
+//
+//	 //String b = list2.get(11).values().toString();
+//	 
+//     System.out.println(a);
+//     System.out.println(b);
+     
 	} 
 	
 	}

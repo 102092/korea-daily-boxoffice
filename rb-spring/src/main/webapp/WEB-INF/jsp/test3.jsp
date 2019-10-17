@@ -21,7 +21,7 @@
 {
 
    margin-top :10%;
-   margin-left : 80%;
+   margin-left : 50%;
    
 
 }
