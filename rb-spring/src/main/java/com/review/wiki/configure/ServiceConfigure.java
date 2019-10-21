@@ -66,7 +66,6 @@ public class ServiceConfigure {
 	
 	@Bean
 	public Jackson2ObjectMapperBuilder configureObjectMapper() {
-		// Java time module
 		JavaTimeModule jtm = new JavaTimeModule();
 		jtm.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ISO_DATE_TIME));
 		Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder() {

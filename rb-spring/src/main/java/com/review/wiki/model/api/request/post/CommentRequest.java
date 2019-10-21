@@ -16,8 +16,7 @@ public class CommentRequest {
 	@ApiModelProperty(value = "내용", required = true)
 	private String contents;
 
-	protected CommentRequest() {
-	}
+	protected CommentRequest() {}
 
 	public String getContents() {
 		return contents;
