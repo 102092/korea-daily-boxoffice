@@ -23,7 +23,7 @@ public class JdbcBookRepository implements BookRepository {
     }
 
 	@Override
-	public Optional<Book> findBytitl(String title) {
+	public Optional<Item> findBytitl(String title) {
 		// TODO Auto-generated method stub
 		return null;
 	}

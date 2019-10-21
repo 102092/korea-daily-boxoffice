@@ -2,6 +2,8 @@ package com.review.wiki.controller.book;
 
 
 
+import java.util.List;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -35,22 +37,23 @@ public class BookRestController {
 	private HttpEntity<?> headers;
 	private RestTemplate template = new RestTemplate();
 
-//	@GetMapping(path = "book/{title}")
-//	public List<Item> findBookByQuery(@PathVariable String title) {
-//		MultiValueMap<String, String> headerMap = new LinkedMultiValueMap<>();
-//		headerMap.add("X-Naver-Client-Id", CLIENT_ID);
-//		headerMap.add("X-Naver-Client-Secret", CLIENT_SECRET);
-//		headerMap.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-//		this.headers = new HttpEntity<>(headerMap);
-//		String url = URL + "?d_titl=" + title + "&display=100";
-//		ResponseEntity<Book> responseEntity = template.exchange(url, HttpMethod.GET, headers, Book.class);
-//		Book book = responseEntity.getBody();
-//		return book.getItems();
-//		
-//	}
-	
 	@GetMapping(path = "book/{title}")
-	public Item bookCreate(@PathVariable String title){
+	public List<Item> findBookByAPI(@PathVariable String title) {
+		MultiValueMap<String, String> headerMap = new LinkedMultiValueMap<>();
+		headerMap.add("X-Naver-Client-Id", CLIENT_ID);
+		headerMap.add("X-Naver-Client-Secret", CLIENT_SECRET);
+		headerMap.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+		this.headers = new HttpEntity<>(headerMap);
+		String url = URL + "?d_titl=" + title + "&display=100";
+		ResponseEntity<Book> responseEntity = template.exchange(url, HttpMethod.GET, headers, Book.class);
+		Book book = responseEntity.getBody();
+		return book.getItems();
+		
+	}
+	
+	@GetMapping(path = "book/{title}/{number}")
+	public Item bookCreate(@PathVariable String title, 
+			@PathVariable Integer number){
 		MultiValueMap<String, String> headerMap = new LinkedMultiValueMap<>();
 		headerMap.add("X-Naver-Client-Id", CLIENT_ID);
 		headerMap.add("X-Naver-Client-Secret", CLIENT_SECRET);
@@ -60,7 +63,7 @@ public class BookRestController {
 		ResponseEntity<Book> responseEntity = template.exchange(url, HttpMethod.GET, headers, Book.class);
 		Book book = responseEntity.getBody();
 		
-		return bookService.write(book.getItems().get(0));
+		return bookService.write(book.getItems().get(number));
 		
 	}
 
