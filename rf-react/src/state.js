@@ -2,7 +2,7 @@ import React, { createContext, useContext, useReducer } from "react";
 import { getAuth } from "./services/auth";
 
 export const initialState = {
-  postUesrId: null,
+  postUserId: null,
   auth: getAuth(),
   posts: [],
   friends: [],
@@ -38,14 +38,14 @@ export const reducer = (state, action) => {
             ? [...state.posts, ...action.posts]
             : state.posts,
         query: action.query,
-        postUesrId: action.postUesrId
+        postUserId: action.postUserId
       };
     case "getPosts":
       return {
         ...state,
         posts: action.posts,
         query: action.query,
-        postUesrId: action.postUesrId
+        postUserId: action.postUserId
       };
     case "getComments":
       return {

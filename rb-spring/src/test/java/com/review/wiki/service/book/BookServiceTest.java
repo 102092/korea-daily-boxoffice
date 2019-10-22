@@ -17,7 +17,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.review.wiki.model.book.NaverBook;
+import com.review.wiki.model.book.Book;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -55,10 +55,10 @@ public class BookServiceTest {
 	@Test
 	public void requestJson() throws Exception {
 		String url = URL + "?d_titl=java&display=5";
-		ResponseEntity<NaverBook> responseEntity = template.exchange(url, HttpMethod.GET, headers, NaverBook.class);
+		ResponseEntity<Book> responseEntity = template.exchange(url, HttpMethod.GET, headers, Book.class);
 		assertThat(responseEntity).isNotNull();
 
-		NaverBook body = responseEntity.getBody();
+		Book body = responseEntity.getBody();
 		assertThat(body).isNotNull();
 		assertThat(body.getDisplay()).isNotNull();
 		assertThat(body.getDisplay()).isEqualTo(5);
