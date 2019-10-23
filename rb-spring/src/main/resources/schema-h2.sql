@@ -19,6 +19,7 @@ CREATE TABLE users (
   like_count    int NOT NULL DEFAULT 0,
   comment_count int NOT NULL DEFAULT 0,
   create_at     datetime NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  word_cloude   varchar(1000) NOT NULL, DEFAULT " ",
   PRIMARY KEY (seq),
   CONSTRAINT fk_post_to_user FOREIGN KEY (user_seq) REFERENCES users (seq) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
