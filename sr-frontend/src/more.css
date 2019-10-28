@@ -31,11 +31,11 @@
 .board {
   font-family: "돋움";
   font-size: 13px;
-  position: absolute;
+  position: -166px -78px;
   top: 30px;
-  width: 410px;
+  width: 210px;
   height: 135px;
-  background: pink;
+  background: white;
   visibility: hidden;
 }
 

@@ -152,30 +152,10 @@ class Movie extends React.Component {
             </p>
           </div>
           <span class="more" onClick={this.update}>
-            <span class="blind">더보기 V</span>
+            <span class="blind">더보기 </span>
           </span>
           <div class="board">
-            <ul class="list">
-              <li>가계부</li>
-              <li>날씨</li>
-              <li>네이버 예약</li>
-              <li>네이버 캐스트</li>
-              <li>네이버 클라우드</li>
-            </ul>
-            <ul class="list">
-              <li>만화 / 웹툰</li>
-              <li>매거진캐스트</li>
-              <li>메모</li>
-              <li>뮤직</li>
-              <li>부동산</li>
-            </ul>
-            <ul class="list">
-              <li>영화</li>
-              <li>오디오클립</li>
-              <li>오피스</li>
-              <li>웹소설</li>
-              <li>자동차</li>
-            </ul>
+            <p>리뷰내용</p>
           </div>
         </div>
       </div>
