@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: sr-backend
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    platform: h2
+    driver-class-name: org.h2.Driver
+    url: "jdbc:h2:mem:sr-backend;MODE=MYSQL;DB_CLOSE_DELAY=-1"
+    username: sa
+    password:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+      pool-name: H2_DB
+server:
+  port: 8080
+  
+api:
+  kobis:
+    key: e0e16996d75f4cc203eb802ace6fae55
+    url: http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
