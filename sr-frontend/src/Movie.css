@@ -68,7 +68,8 @@
 .movie .movie__nations,
 .movie .movie__directors,
 .movie .movie__genres,
-.movie .movie__distributor {
+.movie .movie__distributor,
+.movie .movie__review {
   display: flex;
   align-items: center;
   color: #2c2c2c;
@@ -82,7 +83,8 @@
 .movie .movie__nations > span,
 .movie .movie__directors > span,
 .movie .movie__genres > span,
-.movie .movie__distributor > span {
+.movie .movie__distributor > span,
+.movie .movie__review > span {
   flex: 0 0 80px;
   font-weight: 700;
 }

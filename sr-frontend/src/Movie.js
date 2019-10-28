@@ -4,6 +4,11 @@ import axios from "axios";
 import moment from "moment";
 import querystring from "querystring";
 import "./Movie.css";
+import "./more.css";
+//import "./more.js";
+import jQuery from "jquery";
+window.$ = window.jQuery = jQuery;
+const $ = window.$;
 
 class Movie extends React.Component {
   KOBIS_KEY = "e0e16996d75f4cc203eb802ace6fae55";
@@ -72,16 +77,29 @@ class Movie extends React.Component {
     this.getMovie();
   }
 
+  componentDidUpdate() {
+    console.log("업데이트");
+  }
+
+  update = () => {
+    if ($(".more").hasClass("more")) {
+      console.log("if " + this.state.title);
+      $(".more")
+        .addClass("close")
+        .removeClass("more");
+      $(".board").css("visibility", "visible");
+    } else if ($(".close").hasClass("close")) {
+      console.log("else" + this.state.title);
+      $(".close")
+        .addClass("more")
+        .removeClass("close");
+      $(".board").css("visibility", "hidden");
+    }
+  };
+
   render() {
     return (
-      <a
-        className="movie"
-        href={`https://search.naver.com/search.naver?${encodeURI(
-          `sm=top_hty&fbm=1&ie=utf8&query=${this.state.title}`
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <div className="movie">
         <img src={this.state.poster} alt={this.state.title} />
 
         <div className="movie__data">
@@ -127,8 +145,40 @@ class Movie extends React.Component {
               <span>배급사</span> {this.state.distributor}
             </p>
           </div>
+
+          <div className="movie__info">
+            <p className="movie__review">
+              <a href={"https://www.naver.com"}> 리뷰 더보기 </a>
+            </p>
+          </div>
+          <span class="more" onClick={this.update}>
+            <span class="blind">더보기 V</span>
+          </span>
+          <div class="board">
+            <ul class="list">
+              <li>가계부</li>
+              <li>날씨</li>
+              <li>네이버 예약</li>
+              <li>네이버 캐스트</li>
+              <li>네이버 클라우드</li>
+            </ul>
+            <ul class="list">
+              <li>만화 / 웹툰</li>
+              <li>매거진캐스트</li>
+              <li>메모</li>
+              <li>뮤직</li>
+              <li>부동산</li>
+            </ul>
+            <ul class="list">
+              <li>영화</li>
+              <li>오디오클립</li>
+              <li>오피스</li>
+              <li>웹소설</li>
+              <li>자동차</li>
+            </ul>
+          </div>
         </div>
-      </a>
+      </div>
     );
   }
 }
