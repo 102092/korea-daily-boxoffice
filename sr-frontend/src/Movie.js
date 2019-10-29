@@ -69,7 +69,8 @@ class Movie extends React.Component {
         .filter(company => company.companyPartNm === "배급사")
         .map(company => company.companyNm)
         .join(", "),
-      poster: movie.poster
+      poster: movie.poster,
+      review_content: "TestTTTTT"
     });
   };
 
@@ -82,18 +83,23 @@ class Movie extends React.Component {
   }
 
   update = () => {
-    if ($(".more").hasClass("more")) {
-      console.log("if " + this.state.title);
-      $(".more")
-        .addClass("close")
-        .removeClass("more");
-      $(".board").css("visibility", "visible");
-    } else if ($(".close").hasClass("close")) {
-      console.log("else" + this.state.title);
-      $(".close")
-        .addClass("more")
-        .removeClass("close");
-      $(".board").css("visibility", "hidden");
+    if ($(".Test > span").hasClass(this.state.openAt)) {
+      console.log("if " + this.state.openAt);
+
+      if ($(".Test > div").hasClass("board_" + this.state.openAt)) {
+        $(".board_" + this.state.openAt).css("visibility", "visible");
+      }
+
+      $(".Test > span")
+        .removeClass(this.state.openAt)
+        .addClass("close" + this.state.openAt);
+    } else if ($(".Test > span").hasClass("close" + this.state.openAt)) {
+      console.log("else" + this.state.openAt);
+      $(".Test > span")
+        .removeClass("close" + this.state.openAt)
+        .addClass(this.state.openAt);
+
+      $(".Test > div").css("visibility", "hidden");
     }
   };
 
@@ -151,11 +157,14 @@ class Movie extends React.Component {
               <a href={"https://www.naver.com"}> 리뷰 더보기 </a>
             </p>
           </div>
-          <span class="more" onClick={this.update}>
-            <span class="blind">더보기 </span>
-          </span>
-          <div class="board">
-            <p>리뷰내용</p>
+          <div className="Test">
+            <span class={this.state.openAt} onClick={this.update}>
+              <span class="blind">더보기 </span>
+            </span>
+
+            <div className={"board_" + this.state.openAt}>
+              <p>리뷰내용</p>
+            </div>
           </div>
         </div>
       </div>
