@@ -12,7 +12,6 @@ import RadarChart from "react-svg-radar-chart";
 import "react-svg-radar-chart/build/css/index.css";
 //워드클라우드
 import ReactWordcloud from "react-wordcloud";
-import { Resizable } from "re-resizable";
 import words from "./words";
 
 window.$ = window.jQuery = jQuery;
@@ -42,28 +41,17 @@ const captions = {
 };
 
 //워드클라우드용 변수선언
-const resizeStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  border: "solid 1px #ddd",
-  background: "white"
-};
 
 const options = {
   colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
   enableTooltip: true,
   deterministic: false,
   fontFamily: "impact",
-
   fontStyle: "normal",
   fontWeight: "normal",
-  padding: -1,
-  rotations: 3,
-  rotationAngles: [15, 60],
+  rotations: 5,
+  rotationAngles: [0, 0],
   scale: "sqrt"
-
-  // transitionDuration: 1000
 };
 
 class Movie extends React.Component {
@@ -224,15 +212,12 @@ class Movie extends React.Component {
                 <RadarChart captions={captions} data={data} size={150} />
               </div>
               <div class="worddemo">
-                <Resizable
-                  defaultSize={{
-                    width: 190,
-                    height: 150
-                  }}
-                  style={resizeStyle}
-                >
-                  <ReactWordcloud options={options} words={words} />
-                </Resizable>
+                <ReactWordcloud
+                  minsize={[120, 100]}
+                  maxWords={15}
+                  options={options}
+                  words={words}
+                />
               </div>
               {/* <div class="button_div" style={radarChart_style}>
                 <input type="button" id="button1" value="버튼1" />
