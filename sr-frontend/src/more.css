@@ -41,10 +41,29 @@
   font-size: 13px;
   position: -166px -78px;
   top: 30px;
-  width: 210px;
-  height: 135px;
+  width: 340px;
+  height: 250px;
   background: white;
   visibility: hidden;
+}
+
+.chartdemo {
+  position: 0px -78px;
+  top: 30px;
+  width: 80px;
+  height: 135px;
+  border: 1px solid gold;
+  float: left;
+}
+
+.worddemo {
+  padding-top: -100;
+  padding-left: -100;
+  margin-top: -100;
+  width: 200px;
+  height: 135px;
+  border: 1px solid gold;
+  float: right;
 }
 
 .list {

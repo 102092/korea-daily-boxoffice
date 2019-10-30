@@ -4,11 +4,67 @@ import axios from "axios";
 import moment from "moment";
 import querystring from "querystring";
 import "./Movie.css";
+//여기부터 따로 추가
 import "./more.css";
-//import "./more.js";
 import jQuery from "jquery";
+//레이더차트
+import RadarChart from "react-svg-radar-chart";
+import "react-svg-radar-chart/build/css/index.css";
+//워드클라우드
+import ReactWordcloud from "react-wordcloud";
+import { Resizable } from "re-resizable";
+import words from "./words";
+
 window.$ = window.jQuery = jQuery;
 const $ = window.$;
+
+//레이더차트용 변수선언
+const data = [
+  {
+    data: {
+      battery: 0.7,
+      design: 0.8,
+      useful: 0.9,
+      speed: 0.67,
+      weight: 0.8
+    },
+    meta: { color: "blue" }
+  }
+];
+
+const captions = {
+  // columns
+  battery: "Battery Capacity",
+  design: "Design",
+  useful: "Usefulness",
+  speed: "Speed",
+  weight: "Weight"
+};
+
+//워드클라우드용 변수선언
+const resizeStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  border: "solid 1px #ddd",
+  background: "white"
+};
+
+const options = {
+  colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
+  enableTooltip: true,
+  deterministic: false,
+  fontFamily: "impact",
+
+  fontStyle: "normal",
+  fontWeight: "normal",
+  padding: -1,
+  rotations: 3,
+  rotationAngles: [15, 60],
+  scale: "sqrt"
+
+  // transitionDuration: 1000
+};
 
 class Movie extends React.Component {
   KOBIS_KEY = "e0e16996d75f4cc203eb802ace6fae55";
@@ -164,6 +220,23 @@ class Movie extends React.Component {
 
             <div className={"board_" + this.state.openAt}>
               <p>리뷰내용</p>
+              <div class="chartdemo">
+                <RadarChart captions={captions} data={data} size={150} />
+              </div>
+              <div class="worddemo">
+                <Resizable
+                  defaultSize={{
+                    width: 190,
+                    height: 150
+                  }}
+                  style={resizeStyle}
+                >
+                  <ReactWordcloud options={options} words={words} />
+                </Resizable>
+              </div>
+              {/* <div class="button_div" style={radarChart_style}>
+                <input type="button" id="button1" value="버튼1" />
+              </div> */}
             </div>
           </div>
         </div>
@@ -171,6 +244,11 @@ class Movie extends React.Component {
     );
   }
 }
+
+// const radarChart_style = {
+//   width: "200",
+//   height: "200"
+// };
 
 Movie.propTypes = {
   id: PropTypes.string.isRequired
