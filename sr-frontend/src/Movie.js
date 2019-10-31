@@ -34,11 +34,11 @@ const data = [
 
 const captions = {
   // columns
-  battery: "Battery Capacity",
-  design: "Design",
-  useful: "Usefulness",
-  speed: "Speed",
-  weight: "Weight"
+  battery: "완성도",
+  design: "가독성",
+  useful: "대중성",
+  speed: "작품성",
+  weight: "독창성"
 };
 
 //워드클라우드용 변수선언
@@ -210,7 +210,7 @@ class Movie extends React.Component {
             <div className={"board_" + this.state.openAt}>
               <p>리뷰내용</p>
               <div class="chartdemo">
-                <RadarChart captions={captions} data={data} size={150} />
+                <RadarChart captions={captions} data={data} size={160} />
               </div>
               <div class="worddemo">
                 {/* <ReactWordcloud
@@ -219,7 +219,7 @@ class Movie extends React.Component {
                   options={options}
                   words={words}
                 /> */}
-                <img src={word4} alt="word4" width="170" height="170" />
+                <img src={word4} alt="word4" width="160" height="160" />
               </div>
 
               {/* <div class="button_div" style={radarChart_style}>

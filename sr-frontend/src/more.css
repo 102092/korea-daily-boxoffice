@@ -50,18 +50,20 @@
 .chartdemo {
   position: 0px -78px;
   top: 30px;
-  width: 80px;
-  height: 135px;
+  width: 160px;
+  height: 160px;
   /* border: 1px solid gold; */
   float: left;
+  box-shadow: -1px 1px 5px grey;
 }
 
 .worddemo {
-  margin-top: -20px;
-  width: 170px;
-  height: 170px;
+  margin-right: 5px;
+  width: 160px;
+  height: 160px;
   /* border: 1px solid gold; */
   float: right;
+  box-shadow: -1px 1px 5px grey;
 }
 
 .list {
