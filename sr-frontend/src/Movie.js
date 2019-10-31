@@ -13,14 +13,29 @@ import "react-svg-radar-chart/build/css/index.css";
 //워드클라우드
 // import ReactWordcloud from "react-wordcloud";
 // import words from "./words";
-import word4 from "./word4.png";
+
+//워드클라우드 - R연동
+import word1 from "./img/word1.png";
+import word2 from "./img/word2.png";
+import word3 from "./img/word3.png";
+import word4 from "./img/word4.png";
+import word5 from "./img/word5.png";
+import word6 from "./img/word6.png";
+import word7 from "./img/word7.png";
+import word8 from "./img/word8.png";
+import word9 from "./img/word9.png";
+import word10 from "./img/word10.png";
 
 window.$ = window.jQuery = jQuery;
 const $ = window.$;
 
 const count = {
-  count: 0
+  count: 0,
+  imgCount: 1,
+  imgName: ""
 };
+
+const array_test = [""];
 //레이더차트용 변수선언
 const data = [
   {
@@ -124,6 +139,7 @@ class Movie extends React.Component {
 
   componentDidMount() {
     this.getMovie();
+    array_test[1] = word1;
   }
 
   componentDidUpdate() {
@@ -162,6 +178,47 @@ class Movie extends React.Component {
     data[0].data.KDS = count.count;
     data[0].data.JPS = count.count;
     data[0].data.DCS = count.count;
+    count.imgName = "word" + count.imgCount;
+
+    console.log(count.imgCount + this.state.title);
+    count.imgCount = count.imgCount + 1;
+
+    //DB에서 데이터 가져오면 IF문 써서 title이 맞는 import imag랑 매칭시키는 방식으로
+    switch (count.imgCount) {
+      case 1:
+        array_test[1] = word1;
+        break;
+      case 2:
+        array_test[1] = word2;
+        break;
+      case 3:
+        array_test[1] = word3;
+        break;
+      case 4:
+        array_test[1] = word4;
+        break;
+      case 5:
+        array_test[1] = word5;
+        break;
+      case 6:
+        array_test[1] = word6;
+        break;
+      case 7:
+        array_test[1] = word7;
+        break;
+      case 8:
+        array_test[1] = word8;
+        break;
+      case 9:
+        array_test[1] = word9;
+        break;
+      default:
+        array_test[1] = word10;
+    }
+
+    // console.log(
+    //   "테스트 : " + count.imgCount + "src는 :::: " + array_test[count.imgCount]
+    // );
   }
 
   render() {
@@ -234,7 +291,12 @@ class Movie extends React.Component {
                   options={options}
                   words={words}
                 /> */}
-                <img src={word4} alt="word4" width="160" height="160" />
+                <img
+                  src={array_test[1]}
+                  alt={count.imgName}
+                  width="160"
+                  height="160"
+                />
               </div>
 
               {/* <div class="button_div" style={radarChart_style}>
