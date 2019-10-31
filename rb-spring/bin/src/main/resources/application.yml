@@ -1,4 +1,5 @@
 spring:
+  devtools:    livereload:      enabled: true
   mvc:    view:      prefix: /WEB-INF/jsp/
       suffix: .jsp
   application:
@@ -20,7 +21,17 @@ spring:
     hikari:
       minimum-idle: 1
       maximum-pool-size: 5
-      pool-name: H2_DB
+      pool-name: H2_DB      connection-timeout: 20000
     
 server:
   port: 8080
+  
+logging:
+  pattern:    console: test %-5level %logger{36} - %msg%n  level:
+    root: ERROR
+    com:
+      mkyong: info
+      zaxxer: DEBUG
+    org.springframework: info    
+    
+    
