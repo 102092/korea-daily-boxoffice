@@ -11,8 +11,9 @@ import jQuery from "jquery";
 import RadarChart from "react-svg-radar-chart";
 import "react-svg-radar-chart/build/css/index.css";
 //워드클라우드
-import ReactWordcloud from "react-wordcloud";
-import words from "./words";
+// import ReactWordcloud from "react-wordcloud";
+// import words from "./words";
+import word4 from "./word4.png";
 
 window.$ = window.jQuery = jQuery;
 const $ = window.$;
@@ -42,17 +43,17 @@ const captions = {
 
 //워드클라우드용 변수선언
 
-const options = {
-  colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
-  enableTooltip: true,
-  deterministic: false,
-  fontFamily: "impact",
-  fontStyle: "normal",
-  fontWeight: "normal",
-  rotations: 5,
-  rotationAngles: [0, 0],
-  scale: "sqrt"
-};
+// const options = {
+//   colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
+//   enableTooltip: true,
+//   deterministic: false,
+//   fontFamily: "impact",
+//   fontStyle: "normal",
+//   fontWeight: "normal",
+//   rotations: 5,
+//   rotationAngles: [0, 0],
+//   scale: "sqrt"
+// };
 
 class Movie extends React.Component {
   KOBIS_KEY = "e0e16996d75f4cc203eb802ace6fae55";
@@ -212,13 +213,15 @@ class Movie extends React.Component {
                 <RadarChart captions={captions} data={data} size={150} />
               </div>
               <div class="worddemo">
-                <ReactWordcloud
+                {/* <ReactWordcloud
                   minsize={[120, 100]}
                   maxWords={15}
                   options={options}
                   words={words}
-                />
+                /> */}
+                <img src={word4} alt="word4" width="170" height="170" />
               </div>
+
               {/* <div class="button_div" style={radarChart_style}>
                 <input type="button" id="button1" value="버튼1" />
               </div> */}
@@ -230,9 +233,9 @@ class Movie extends React.Component {
   }
 }
 
-// const radarChart_style = {
-//   width: "200",
-//   height: "200"
+// const word_style = {
+//   width: "150",
+//   height: "150"
 // };
 
 Movie.propTypes = {
