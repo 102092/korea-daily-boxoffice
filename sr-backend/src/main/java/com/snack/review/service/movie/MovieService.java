@@ -1,81 +1,92 @@
 package com.snack.review.service.movie;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.snack.review.model.api.API;
-import com.snack.review.model.movie.DailyBoxOfficeList;
 import com.snack.review.model.movie.KobisMovie;
 
 @Service
 public class MovieService {
 
-	private Logger log = LoggerFactory.getLogger(getClass());
+	@Value("${api.kobis.key}")
+	private String kobisKey;
 
-//	@Value("${api.kobis.key}")
-//	private String kobisKey;
-//
-//	@Value("${api.kobis.daily-url}")
-//	private String kobisDailyUrl;
-//
-//	@Value("${api.kobis.info-url}")
-//	private String kobisInfoUrl;
-//
-//	@Value("${api.tmbd.key}")
-//	private String tmbdKey;
-//
-//	@Value("${api.tmbd.search-url}")
-//	private String tmbdSearch;
-//
-//	@Value("${api.tmbd.poster-url}")
-//	private String tmbdPoster;
+	@Value("${api.kobis.daily-url}")
+	private String kobisDailyUrl;
 
-	@Autowired
-	private final API api;
+	@Value("${api.kobis.info-url}")
+	private String kobisInfoUrl;
 
-	public MovieService(API api) {
-		this.api = api;
+	@Value("${api.tmdb.key}")
+	private String tmdbKey;
+
+	@Value("${api.tmdb.search-url}")
+	private String tmdbSearch;
+
+	@Value("${api.tmdb.poster-url}")
+	private String tmdbPoster;
+
+//	private Logger log = LoggerFactory.getLogger(getClass());
+
+	private final RestTemplate restTemplate;
+
+	public MovieService(RestTemplateBuilder restTemplateBuilder) {
+		this.restTemplate = restTemplateBuilder.build();
 	}
 
-	SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-	Calendar cal = new GregorianCalendar(Locale.KOREA);
-//	cal.add(Calendar.DATE, -1);
+	HttpHeaders httpHeaders = new HttpHeaders();
+	HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
 
-	public List<DailyBoxOfficeList> getDailyBoxOffice() {
+	public KobisMovie getDailyBoxOffice(String targetDt, String repNationCd) {
 
-		String y_date = format.format(cal.getTime());
-		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-		factory.setConnectTimeout(5000);
-		factory.setReadTimeout(5000);
-		RestTemplate restTemplate = new RestTemplate(factory);
+		UriComponents builder = UriComponentsBuilder.fromHttpUrl(
+				kobisDailyUrl + "?" + "key=" + kobisKey + "&targetDt=" + targetDt + "&repNationCd=" + repNationCd)
+				.build();
+//		log.info(builder.toUriString());
+		ResponseEntity<KobisMovie> dailyBoxOffice = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
+				httpEntity, KobisMovie.class);
 
-		HttpHeaders header = new HttpHeaders();
-		HttpEntity<?> entity = new HttpEntity<>(header);
+		return dailyBoxOffice.getBody();
+	}
 
-		UriComponents uri = UriComponentsBuilder.fromHttpUrl(api.getKobisDailyUrl() + "?" + "key=" + api.getKobisKey()
-				+ "&targetDt=" + y_date + "&repNationCd=" + "K").build();
+	public Object getMovieInfo(String movieCd) {
 
-		ResponseEntity<KobisMovie> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity,
-				KobisMovie.class);
+		UriComponents builder = UriComponentsBuilder
+				.fromHttpUrl(kobisInfoUrl + "?" + "key=" + kobisKey + "&movieCd=" + movieCd).build();
 
-		return resultMap.getBody().getBoxOfficeResult().getDailyBoxOfficeList();
+//		log.info(builder.toUriString());
+
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<Map> movieInfo = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity,
+				Map.class);
+		return movieInfo.getBody();
+
+	}
+
+	public Object getPoster(String language, String query, String year) {
+
+		UriComponents builder = UriComponentsBuilder
+				.fromHttpUrl(tmdbSearch + "?" + "api_key=" + tmdbKey + "&query=" + query + "&year=" + year).build();
+
+//		log.info(builder.toUriString());
+
+		@SuppressWarnings("rawtypes")
+		ResponseEntity<Map> tmdbPoster = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity,
+				Map.class);
+		return tmdbPoster.getBody();
+
 	}
 
 }
