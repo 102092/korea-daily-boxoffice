@@ -1,11 +1,6 @@
 package com.snack.review.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -16,14 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.snack.review.model.movie.DailyBoxOfficeList;
 import com.snack.review.model.movie.KobisMovie;
+
 
 @RestController
 @RequestMapping("/movies")
@@ -32,27 +28,24 @@ public class MoiveRestController {
 	@Value("${api.kobis.key}")
 	private String kobisKey;
 
-	@Value("${api.kobis.url}")
-	private String kobisUrl;
+	@Value("${api.kobis.daily-url}")
+	private String kobisDailyUrl;
 
-	@Value("${api.tmbd.key}")
-	private String tmbdKey;
+	@Value("${api.kobis.info-url}")
+	private String kobisInfoUrl;
 
-	@Value("${api.tmbd.search-url}")
-	private String tmbdSearch;
+	@Value("${api.tmdb.key}")
+	private String tmdbKey;
 
-	@Value("${api.tmbd.poster-url}")
-	private String tmbdPoster;
+	@Value("${api.tmdb.search-url}")
+	private String tmdbSearch;
 
-	DailyBoxOfficeList dailyBoxOfficeList = new DailyBoxOfficeList();
+	@Value("${api.tmdb.poster-url}")
+	private String tmdbPoster;
 
 	@GetMapping(path = "/dailyBoxOffice")
-	public List<DailyBoxOfficeList> getDailyBoxOffice() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-		Calendar cal = new GregorianCalendar(Locale.KOREA);
-		cal.add(Calendar.DATE, -1);
-
-		String y_date = format.format(cal.getTime());
+	public KobisMovie getDailyBoxOffice(@RequestParam(value = "targetDt") String targetDt,
+			@RequestParam(value = "repNationCd") String repNationCd) {
 		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 		factory.setConnectTimeout(5000);
 		factory.setReadTimeout(5000);
@@ -61,18 +54,18 @@ public class MoiveRestController {
 		HttpHeaders header = new HttpHeaders();
 		HttpEntity<?> entity = new HttpEntity<>(header);
 
-		UriComponents uri = UriComponentsBuilder.fromHttpUrl(kobisUrl + "?" + "key=" + kobisKey + "&targetDt=" + y_date)
+		UriComponents uri = UriComponentsBuilder.fromHttpUrl(
+				kobisDailyUrl + "?" + "key=" + kobisKey + "&targetDt=" + targetDt + "&repNationCd=" + repNationCd)
 				.build();
+		System.out.println(uri.toString());
 
 		ResponseEntity<KobisMovie> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity,
 				KobisMovie.class);
-		KobisMovie MovieBody = resultMap.getBody();
-		dailyBoxOfficeList = MovieBody.getBoxOfficeResult().getDailyBoxOfficeList().get(1);
-		return MovieBody.getBoxOfficeResult().getDailyBoxOfficeList();
+		return resultMap.getBody();
 	}
 
-	@GetMapping(path = "/test")
-	public Object test() {
+	@GetMapping(path = "/movieInfo")
+	public Object getMovieInfo(@RequestParam(value = "movieCd") String movieCd) {
 
 		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
 		factory.setConnectTimeout(5000);
@@ -83,13 +76,32 @@ public class MoiveRestController {
 		HttpEntity<?> entity = new HttpEntity<>(header);
 
 		UriComponents uri = UriComponentsBuilder
-				.fromHttpUrl(tmbdSearch + "?" + "api_key=" + tmbdKey + "&language=" + "ko-KR" + "&query="
-						+ dailyBoxOfficeList.getMovieNm() + "&year=" + dailyBoxOfficeList.getOpenDt().substring(0, 4))
-				.build();
+				.fromHttpUrl(kobisInfoUrl + "?" + "key=" + kobisKey + "&movieCd=" + movieCd).build();
 
 		ResponseEntity<Map> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
+		return resultMap.getBody();
 
-		return resultMap.getBody().get("results");
+	}
+
+	@GetMapping(path = "/tmdbPoster")
+	public Object getPoster(
+			@RequestParam(value = "language") String language,
+			@RequestParam(value = "query") String query, 
+			@RequestParam(value = "year") String year) {
+
+		HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+		factory.setConnectTimeout(5000);
+		factory.setReadTimeout(5000);
+		RestTemplate restTemplate = new RestTemplate(factory);
+
+		HttpHeaders header = new HttpHeaders();
+		HttpEntity<?> entity = new HttpEntity<>(header);
+
+		UriComponents uri = UriComponentsBuilder
+				.fromHttpUrl(tmdbSearch + "?" + "api_key=" + tmdbKey + "&query=" + query + "&year=" + year).build();
+		ResponseEntity<Map> resultMap = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, Map.class);
+		return resultMap.getBody();
+
 	}
 
 }

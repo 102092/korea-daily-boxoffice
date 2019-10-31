@@ -2,45 +2,33 @@ import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
-import querystring from "querystring";
 import "./Movie.css";
 
 class Movie extends React.Component {
-  KOBIS_KEY = "e0e16996d75f4cc203eb802ace6fae55";
-
-  KOBIS_MOVIE_URI =
-    "//www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
-
-  TMDB_KEY = "6d3a7fab8fd7268369688995d40bc8e5";
-
-  TMDB_SEARCH_URI = "//api.themoviedb.org/3/search/movie";
-
   TMDB_POSTER_URI = "//image.tmdb.org/t/p/w185_and_h278_bestv2";
 
   state = {};
 
-  getMovie = async () => {
+  getMovieInfo = async () => {
     const {
       data: {
         movieInfoResult: { movieInfo }
       }
-    } = await axios.get(
-      `${this.KOBIS_MOVIE_URI}?${querystring.stringify({
-        key: this.KOBIS_KEY,
+    } = await axios.get("movies/movieInfo", {
+      params: {
         movieCd: this.props.id
-      })}`
-    );
+      }
+    });
 
     const {
       data: { results }
-    } = await axios.get(
-      `${this.TMDB_SEARCH_URI}?${querystring.stringify({
-        api_key: this.TMDB_KEY,
+    } = await axios.get("movies/tmdbPoster", {
+      params: {
         language: "ko-KR",
         query: movieInfo.movieNm,
         year: moment(movieInfo.openDt).format("YYYY")
-      })}`
-    );
+      }
+    });
 
     movieInfo["poster"] = results.length
       ? this.TMDB_POSTER_URI + results[0].poster_path
@@ -69,7 +57,7 @@ class Movie extends React.Component {
   };
 
   componentDidMount() {
-    this.getMovie();
+    this.getMovieInfo();
   }
 
   render() {

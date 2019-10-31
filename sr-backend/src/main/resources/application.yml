@@ -21,8 +21,9 @@ server:
 api:
   kobis:
     key: e0e16996d75f4cc203eb802ace6fae55
-    url: http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
-  tmbd:
+    daily-url: http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
+    info-url: http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json
+  tmdb:
     key: 6d3a7fab8fd7268369688995d40bc8e5
     search-url: http://api.themoviedb.org/3/search/movie   
     poster-url: http://image.tmdb.org/t/p/w185_and_h278_bestv2
