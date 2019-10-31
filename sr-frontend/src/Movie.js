@@ -18,15 +18,18 @@ import word4 from "./word4.png";
 window.$ = window.jQuery = jQuery;
 const $ = window.$;
 
+const count = {
+  count: 0
+};
 //레이더차트용 변수선언
 const data = [
   {
     data: {
-      battery: 0.7,
-      design: 0.8,
-      useful: 0.9,
-      speed: 0.67,
-      weight: 0.8
+      WSD: 0.7,
+      KDS: 0.8,
+      DJS: 0.9,
+      JPS: 0.67,
+      DCS: 0.8
     },
     meta: { color: "blue" }
   }
@@ -34,11 +37,11 @@ const data = [
 
 const captions = {
   // columns
-  battery: "완성도",
-  design: "가독성",
-  useful: "대중성",
-  speed: "작품성",
-  weight: "독창성"
+  WSD: "완성도",
+  KDS: "가독성",
+  DJS: "대중성",
+  JPS: "작품성",
+  DCS: "독창성"
 };
 
 //워드클라우드용 변수선언
@@ -125,9 +128,13 @@ class Movie extends React.Component {
 
   componentDidUpdate() {
     console.log("업데이트");
+    this.countPlus();
   }
 
   update = () => {
+    console.log("여기서 데이터 바꾸는 작업");
+    console.log(data[0].data.DJS);
+
     if ($(".Test > span").hasClass(this.state.openAt)) {
       console.log("if " + this.state.openAt);
 
@@ -148,11 +155,19 @@ class Movie extends React.Component {
     }
   };
 
+  countPlus() {
+    count.count = count.count + 0.1;
+    data[0].data.DJS = count.count;
+    data[0].data.WSD = count.count;
+    data[0].data.KDS = count.count;
+    data[0].data.JPS = count.count;
+    data[0].data.DCS = count.count;
+  }
+
   render() {
     return (
       <div className="movie">
         <img src={this.state.poster} alt={this.state.title} />
-
         <div className="movie__data">
           <div className="movie__header">
             <h4 className="movie__title">{this.state.title}</h4>
