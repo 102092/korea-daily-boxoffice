@@ -6,7 +6,8 @@
 		<meta charset="utf-8">
 		<title>Sample</title>
 <script src="http://d3js.org/d3.v5.min.js"></script>
-<script src="pie5.js"></script>
+<script language="JavaScript" src="pie5.js" charset="UTF-8"></script>
+
 <style>
 svg { width: 320px; height: 240px; border: 1px solid black; }
 

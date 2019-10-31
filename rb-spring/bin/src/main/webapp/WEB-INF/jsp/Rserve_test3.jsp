@@ -3,14 +3,11 @@
 <%@ page import="com.review.wiki.RWordCloude" %>
 <html>
    <body>
-  <h1>WordCloude3</h1>  
+  <h1>WordCloude</h1>  
 <%
 RWordCloude con = new RWordCloude();
 %>
-
 <img src="data:image/jpg;base64, <%=Base64.encode(con.returnRImg())%>"/>
-
-<h2> testtt </h2>
 </body>
 </html>
 

@@ -24,7 +24,7 @@ spring:
       pool-name: H2_DB      connection-timeout: 20000
     
 server:
-  port: 8080
+  port: 8000
   
 logging:
   pattern:    console: test %-5level %logger{36} - %msg%n  level:

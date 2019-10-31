@@ -3,6 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -10,6 +12,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.review.wiki</groupId>
+	
 	<artifactId>rb-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>rb-spring</name>
@@ -201,8 +204,66 @@
         </dependency>
 
 
+		<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		
+		
+		<!-- Rserve 용 dependency -->
+		
+		<dependency>
+    <groupId>org.nuiton.thirdparty</groupId>
+    <artifactId>JRI</artifactId>
+    <version>0.9-6</version>
+</dependency>
+
+<dependency>
+    <groupId>org.rosuda.REngine</groupId>
+    <artifactId>Rserve</artifactId>
+    <version>1.8.1</version>
+</dependency>
+
+<dependency>
+    <groupId>com.github.yannrichet</groupId>
+    <artifactId>Rsession</artifactId>
+    <version>3.0.4</version>
+</dependency>
+
+<dependency>
+    <groupId>com.github.jbytecode</groupId>
+    <artifactId>RCaller</artifactId>
+    <version>2.8</version>
+</dependency>
+
+
+  <dependency>
+    <groupId>org.renjin</groupId>
+    <artifactId>renjin-script-engine</artifactId>
+    <version>RELEASE</version>
+  </dependency>
+
+
+
+
+<!-- Rserve 용 디펜덴시 끝  -->
+
+	
+
 
 	</dependencies>
+
+<!--  R용 repos 시작 -->
+
+<repositories>
+  <repository>
+    <id>bedatadriven</id>
+    <name>bedatadriven public repo</name>
+    <url>https://nexus.bedatadriven.com/content/groups/public/</url>
+  </repository>
+</repositories>
+
+<!--  R용 repos 끝-->
 
 	<build>
 		<plugins>

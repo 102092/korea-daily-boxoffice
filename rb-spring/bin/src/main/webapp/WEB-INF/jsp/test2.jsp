@@ -14,7 +14,8 @@
   </script>
 </head>	
 <body>
-<div class="chart-demo">
+<%--<div class="chart-demo"> --%>
+<div class="chart-demo" style="width: 500px; height: 500px;">
                     <h2>Radar Chart</h2>
                     <canvas id="radarChart" width="400" height="400"></canvas>
 

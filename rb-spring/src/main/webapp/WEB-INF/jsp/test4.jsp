@@ -3,51 +3,41 @@
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
-		<title>Smoothed D3.js Radar Chart</title>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="http://d3js.org/d3.v5.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+   
+   <script language="JavaScript" src="RRR4.js" charset="UTF-8"></script>
 
-		<!-- Google fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
-		
-		<!-- D3.js -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-		<script src="http://d3js.org/d3.v5.min.js"></script>
- 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
-  		
-		
-		
-		<style>
-			.radar-chart .area {
-  fill-opacity: 0.7;
-}
-.radar-chart.focus .area {
-  fill-opacity: 0.3;
-}
-.radar-chart.focus .area.focused {
-  fill-opacity: 0.9;
-}
-.area.germany, .germany .circle {
-  fill: #FFD700;
-  stroke: none;
-}
-.area.argentina, .argentina .circle {
-  fill: #ADD8E6;
-  stroke: none;
-}
-			
-		</style>
-	
-	</head>
-	<body>
 
-	<div class="chart-container"></div>
-<script>
-RadarChart.draw(".chart-container", data);
-</script>
 
-	</body>
+
+</head>	
+<style>
+.button_div
+{
+
+   margin-top :10%;
+   margin-left : 50%;
+   
+
+}
+</style>
+<body>
+<div class="chart-demo" style="width: 500px; height: 500px;">
+
+                    <h2>Rada444</h2>
+                    <canvas id="radarChart" width="200" height="200"></canvas>
+                    
+        </div>
+        
+        <div class ="button_div" style="width:200px; height: 200px;">
+        
+        <input type="button" id="button1" value="¹öÆ°1" />
+
+</div>
+</body>
 </html>

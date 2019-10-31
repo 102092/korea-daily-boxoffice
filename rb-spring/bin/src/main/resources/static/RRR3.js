@@ -111,14 +111,17 @@ $(document).ready(function() {
     	//Function - Fires when the animation is complete
     	onAnimationComplete : null,
 
+    	
 
     }
+    
+    
 
     // what the hell test
     // Radar Data
 
     var radarData = {
-    	labels : ["Shipping Time","Communication","Item As Described","Shipping Cost", "SE"],
+    	labels : ["A","B","C","D", "E"],
     	datasets : [
     		{
     		    label: "User Feedback",
@@ -178,12 +181,38 @@ $(document).ready(function() {
     	  var activePointDistToCenter = pointDistance({x: myRadarChart.scale.xCenter, y: myRadarChart.scale.yCenter}, activePoints[0]);
 
     	  if (eventLocDistToCenter < activePointDistToCenter) {
-    	    activePoints[0].value--;
+    	    
+    		  activePoints[0].value -= Math.round((activePointDistToCenter - eventLocDistToCenter)/47);
+    	    console.log("이벤트 : " + Math.round(eventLocDistToCenter/47))
+    	    console.log("액티브 : " + Math.round(activePointDistToCenter/47))
+    	    console.log("마이너스 값 : " +	Math.round((activePointDistToCenter - eventLocDistToCenter)/47));
     	  } else {
-    	    activePoints[0].value++;
+    	   
+    		  activePoints[0].value += Math.round((eventLocDistToCenter - activePointDistToCenter)/47);
+    	    console.log("이벤트 : " + Math.round(eventLocDistToCenter/47))
+    	    console.log("액티브 : " + Math.round(activePointDistToCenter/47))
+    	    console.log("플러스 값 : " + Math.round((eventLocDistToCenter - activePointDistToCenter)/47))
+    	    
     	  }
 
     	  myRadarChart.update();
     	});
 
+        
+        //var button1 = document.getElementById("button1");
+        
+      
+       
+    	 
+        $('#button1').on('click', function() {
+        
+        	console.log("A 는 : " + myRadarChart.datasets[0].points[0].value);
+        	console.log("B 는 : " + myRadarChart.datasets[0].points[1].value);
+        	console.log("C 는 : " + myRadarChart.datasets[0].points[2].value);
+        	console.log("D 는 : " + myRadarChart.datasets[0].points[3].value);
+        	console.log("E 는 : " + myRadarChart.datasets[0].points[4].value);
+        	
+         });
+
+    	
 });

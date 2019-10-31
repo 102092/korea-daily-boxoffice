@@ -1,16 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.sun.org.apache.xml.internal.security.utils.Base64" %>
-<%@ page import="com.review.wiki.RWordCloude" %>
+<%@ page import="com.review.wiki.rJava_Con" %>
 <html>
    <body>
-  <h1>WordCloude3</h1>  
+  <h1>Test!</h1>  
 <%
-RWordCloude con = new RWordCloude();
+  rJava_Con con = new rJava_Con();
 %>
-
 <img src="data:image/jpg;base64, <%=Base64.encode(con.returnRImg())%>"/>
-
-<h2> testtt </h2>
 </body>
 </html>
 
