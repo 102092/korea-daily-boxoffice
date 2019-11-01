@@ -1,47 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
 import axios from "axios";
-import Movie from "./Movie";
 import moment from "moment";
-import querystring from "querystring";
+import Movie from "./Movie";
 import "./App.css";
 
-class App extends React.Component {
-  KOBIS_KEY = "e0e16996d75f4cc203eb802ace6fae55";
-
-  KOBIS_BOX_OFFICE_URI =
-    "//www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
-
+class App extends Component {
   state = {
     isLoading: true,
     movies: []
   };
 
-  getMovies = async () => {
+  componentDidMount() {
+    setInterval(this.hello, 250);
+    this.getBoxOfficeList();
+  }
+
+  getBoxOfficeList = async () => {
     const yestersday = moment()
-      .subtract(1, "days")
+      .startOf("isoWeek")
       .format("YYYYMMDD");
 
     const {
       data: {
         boxOfficeResult: { dailyBoxOfficeList }
       }
-    } = await axios.get(
-      `${this.KOBIS_BOX_OFFICE_URI}?${querystring.stringify({
-        key: this.KOBIS_KEY,
+    } = await axios.get("movies/dailyBoxOffice", {
+      params: {
         targetDt: yestersday,
         repNationCd: "K"
-      })}`
-    );
+      }
+    });
 
     this.setState({
       movies: dailyBoxOfficeList,
       isLoading: false
     });
   };
-
-  componentDidMount() {
-    this.getMovies();
-  }
 
   render() {
     const { isLoading, movies } = this.state;
