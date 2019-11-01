@@ -16,8 +16,8 @@ class App extends Component {
   }
 
   getBoxOfficeList = async () => {
-    const yestersday = moment()
-      .subtract(1, "days")
+    const everyMonday = moment()
+      .startOf("isoweek")
       .format("YYYYMMDD");
 
     const {
@@ -26,7 +26,7 @@ class App extends Component {
       }
     } = await axios.get("movies/dailyBoxOffice", {
       params: {
-        targetDt: yestersday,
+        targetDt: everyMonday,
         repNationCd: "K"
       }
     });

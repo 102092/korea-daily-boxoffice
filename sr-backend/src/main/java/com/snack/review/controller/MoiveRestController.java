@@ -19,7 +19,8 @@ public class MoiveRestController {
 	}
 
 	@GetMapping(path = "/dailyBoxOffice")
-	public KobisMovie getDailyBoxOffice(@RequestParam(value = "targetDt") String targetDt,
+	public KobisMovie getDailyBoxOffice(
+			@RequestParam(value = "targetDt") String targetDt,
 			@RequestParam(value = "repNationCd") String repNationCd) {
 		return movieService.getDailyBoxOffice(targetDt, repNationCd);
 

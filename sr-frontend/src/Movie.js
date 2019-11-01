@@ -45,8 +45,7 @@ class Movie extends React.Component {
       status: movie.prdtStatNm,
       audits: movie.audits[0].watchGradeNm,
       showTimes: `${movie.showTm}분`,
-      nations: movie.nations[0].nationNm,
-      directors: movie.directors.map(director => director.peopleNm).join(" / "),
+      directors: movie.directors.map(director => director.peopleNm).join("/"),
       genres: movie.genres.map(genre => genre.genreNm).join("/"),
       distributor: movie.companys
         .filter(company => company.companyPartNm === "배급사")
@@ -95,10 +94,6 @@ class Movie extends React.Component {
 
             <p className="movie__showtimes">
               <span>상영시간</span> {this.state.showTimes}
-            </p>
-
-            <p className="movie__nations">
-              <span>제작국가</span> {this.state.nations}
             </p>
           </div>
 
