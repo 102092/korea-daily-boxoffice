@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import moment from "moment";
-import querystring from "querystring";
 import "./Movie.css";
 //여기부터 따로 추가
 import "./more.css";
@@ -10,9 +9,6 @@ import jQuery from "jquery";
 //레이더차트
 import RadarChart from "react-svg-radar-chart";
 import "react-svg-radar-chart/build/css/index.css";
-//워드클라우드
-// import ReactWordcloud from "react-wordcloud";
-// import words from "./words";
 
 //워드클라우드 - R연동
 import word1 from "./img/word1.png";
@@ -59,56 +55,31 @@ const captions = {
   DCS: "독창성"
 };
 
-//워드클라우드용 변수선언
-
-// const options = {
-//   colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b"],
-//   enableTooltip: true,
-//   deterministic: false,
-//   fontFamily: "impact",
-//   fontStyle: "normal",
-//   fontWeight: "normal",
-//   rotations: 5,
-//   rotationAngles: [0, 0],
-//   scale: "sqrt"
-// };
-
 class Movie extends React.Component {
-  KOBIS_KEY = "e0e16996d75f4cc203eb802ace6fae55";
-
-  KOBIS_MOVIE_URI =
-    "//www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json";
-
-  TMDB_KEY = "6d3a7fab8fd7268369688995d40bc8e5";
-
-  TMDB_SEARCH_URI = "//api.themoviedb.org/3/search/movie";
-
   TMDB_POSTER_URI = "//image.tmdb.org/t/p/w185_and_h278_bestv2";
 
   state = {};
 
-  getMovie = async () => {
+  getMovieInfo = async () => {
     const {
       data: {
         movieInfoResult: { movieInfo }
       }
-    } = await axios.get(
-      `${this.KOBIS_MOVIE_URI}?${querystring.stringify({
-        key: this.KOBIS_KEY,
+    } = await axios.get("movies/movieInfo", {
+      params: {
         movieCd: this.props.id
-      })}`
-    );
+      }
+    });
 
     const {
       data: { results }
-    } = await axios.get(
-      `${this.TMDB_SEARCH_URI}?${querystring.stringify({
-        api_key: this.TMDB_KEY,
+    } = await axios.get("movies/tmdbPoster", {
+      params: {
         language: "ko-KR",
         query: movieInfo.movieNm,
         year: moment(movieInfo.openDt).format("YYYY")
-      })}`
-    );
+      }
+    });
 
     movieInfo["poster"] = results.length
       ? this.TMDB_POSTER_URI + results[0].poster_path
@@ -132,13 +103,12 @@ class Movie extends React.Component {
         .filter(company => company.companyPartNm === "배급사")
         .map(company => company.companyNm)
         .join(", "),
-      poster: movie.poster,
-      review_content: "TestTTTTT"
+      poster: movie.poster
     });
   };
 
   componentDidMount() {
-    this.getMovie();
+    this.getMovieInfo();
     array_test[1] = word1;
   }
 
@@ -146,30 +116,6 @@ class Movie extends React.Component {
     console.log("업데이트");
     this.countPlus();
   }
-
-  update = () => {
-    console.log("여기서 데이터 바꾸는 작업");
-    console.log(data[0].data.DJS);
-
-    if ($(".Test > span").hasClass(this.state.openAt)) {
-      console.log("if " + this.state.openAt);
-
-      if ($(".Test > div").hasClass("board_" + this.state.openAt)) {
-        $(".board_" + this.state.openAt).css("visibility", "visible");
-      }
-
-      $(".Test > span")
-        .removeClass(this.state.openAt)
-        .addClass("close" + this.state.openAt);
-    } else if ($(".Test > span").hasClass("close" + this.state.openAt)) {
-      console.log("else" + this.state.openAt);
-      $(".Test > span")
-        .removeClass("close" + this.state.openAt)
-        .addClass(this.state.openAt);
-
-      $(".Test > div").css("visibility", "hidden");
-    }
-  };
 
   countPlus() {
     count.count = count.count + 0.1;
@@ -220,6 +166,30 @@ class Movie extends React.Component {
     //   "테스트 : " + count.imgCount + "src는 :::: " + array_test[count.imgCount]
     // );
   }
+
+  update = () => {
+    console.log("여기서 데이터 바꾸는 작업");
+    console.log(data[0].data.DJS);
+
+    if ($(".Test > span").hasClass(this.state.openAt)) {
+      console.log("if " + this.state.openAt);
+
+      if ($(".Test > div").hasClass("board_" + this.state.openAt)) {
+        $(".board_" + this.state.openAt).css("visibility", "visible");
+      }
+
+      $(".Test > span")
+        .removeClass(this.state.openAt)
+        .addClass("close" + this.state.openAt);
+    } else if ($(".Test > span").hasClass("close" + this.state.openAt)) {
+      console.log("else" + this.state.openAt);
+      $(".Test > span")
+        .removeClass("close" + this.state.openAt)
+        .addClass(this.state.openAt);
+
+      $(".Test > div").css("visibility", "hidden");
+    }
+  };
 
   render() {
     return (
@@ -298,10 +268,6 @@ class Movie extends React.Component {
                   height="160"
                 />
               </div>
-
-              {/* <div class="button_div" style={radarChart_style}>
-                <input type="button" id="button1" value="버튼1" />
-              </div> */}
             </div>
           </div>
         </div>
@@ -309,11 +275,6 @@ class Movie extends React.Component {
     );
   }
 }
-
-// const word_style = {
-//   width: "150",
-//   height: "150"
-// };
 
 Movie.propTypes = {
   id: PropTypes.string.isRequired
