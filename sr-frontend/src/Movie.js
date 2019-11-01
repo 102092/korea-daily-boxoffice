@@ -49,7 +49,7 @@ const data = [
 const captions = {
   // columns
   WSD: "완성도",
-  KDS: "가독성",
+  KDS: "몰입성",
   DJS: "대중성",
   JPS: "작품성",
   DCS: "독창성"
@@ -241,7 +241,7 @@ class Movie extends React.Component {
 
           <div className="movie__info">
             <p className="movie__review">
-              <a href={"https://www.naver.com"}> 리뷰 더보기 </a>
+              <a href={"https://www.naver.com"}> 전체 리뷰 보기 </a>
             </p>
           </div>
           <div className="Test">
@@ -250,7 +250,6 @@ class Movie extends React.Component {
             </span>
 
             <div className={"board_" + this.state.openAt}>
-              <p>리뷰내용</p>
               <div class="chartdemo">
                 <RadarChart captions={captions} data={data} size={160} />
               </div>
