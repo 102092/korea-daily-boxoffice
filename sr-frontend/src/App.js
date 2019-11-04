@@ -11,14 +11,15 @@ class App extends Component {
   };
 
   componentDidMount() {
-    setInterval(this.hello, 250);
     this.getBoxOfficeList();
   }
 
   getBoxOfficeList = async () => {
     const everyMonday = moment()
-      .startOf("isoweek")
+      .day(-10)
       .format("YYYYMMDD");
+    // .startOf("isoweek")
+    // .format("YYYYMMDD");
 
     const {
       data: {
