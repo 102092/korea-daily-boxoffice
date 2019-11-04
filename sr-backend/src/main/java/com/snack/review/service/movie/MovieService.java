@@ -38,8 +38,6 @@ public class MovieService {
 	@Value("${api.tmdb.poster-url}")
 	private String tmdbPoster;
 
-//	private Logger log = LoggerFactory.getLogger(getClass());
-
 	private final RestTemplate restTemplate;
 
 	public MovieService(RestTemplateBuilder restTemplateBuilder) {
@@ -54,7 +52,6 @@ public class MovieService {
 		UriComponents builder = UriComponentsBuilder.fromHttpUrl(
 				kobisDailyUrl + "?" + "key=" + kobisKey + "&targetDt=" + targetDt + "&repNationCd=" + repNationCd)
 				.build();
-//		log.info(builder.toUriString());
 		ResponseEntity<KobisMovie> dailyBoxOffice = restTemplate.exchange(builder.toUriString(), HttpMethod.GET,
 				httpEntity, KobisMovie.class);
 
@@ -66,9 +63,6 @@ public class MovieService {
 		UriComponents builder = UriComponentsBuilder
 				.fromHttpUrl(kobisInfoUrl + "?" + "key=" + kobisKey + "&movieCd=" + movieCd).build();
 
-//		log.info(builder.toUriString());
-
-		@SuppressWarnings("rawtypes")
 		ResponseEntity<Map> movieInfo = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity,
 				Map.class);
 		return movieInfo.getBody();
@@ -80,9 +74,6 @@ public class MovieService {
 		UriComponents builder = UriComponentsBuilder
 				.fromHttpUrl(tmdbSearch + "?" + "api_key=" + tmdbKey + "&query=" + query + "&year=" + year).build();
 
-//		log.info(builder.toUriString());
-
-		@SuppressWarnings("rawtypes")
 		ResponseEntity<Map> tmdbPoster = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity,
 				Map.class);
 		return tmdbPoster.getBody();
